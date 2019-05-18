@@ -1,10 +1,10 @@
 # National Park Service Information Kiosk
-*Capital One Deliverable*
+*Capital One Deliverable* - Chloe Tanlimco
+
+project link: https://npk-ct.appspot.com/
 
 
-Chloe Tanlimco
-
-## Running the Program
+## Running the Program Locally
 Open folder in the command line and run: `python main.py` or `py main.py`
 
 Go to <localhost:5000> on your choice of web browser
