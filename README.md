@@ -7,6 +7,8 @@ Chloe Tanlimco
 ## Running the Program
 Open folder in the command line and run: `python main.py` or `py main.py`
 
+Go to `localhost:5000` on your choice of web browser
+
 
 
 ### Resources used: 
