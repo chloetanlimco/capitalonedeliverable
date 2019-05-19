@@ -21,4 +21,5 @@ To deploy changes to Google App Engine, `gcloud app deploy --project npk-ct`
 
 ### Resources used: 
 https://medium.freecodecamp.org/how-to-build-a-web-application-using-flask-and-deploy-it-to-the-cloud-3551c985e492
+
 https://mlsdev.com/blog/81-a-beginner-s-tutorial-for-understanding-restful-api
