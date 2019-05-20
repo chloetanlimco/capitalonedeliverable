@@ -10,7 +10,7 @@ Open folder in the command line and run: `python3 main.py` or `py main.py`
 Go to <localhost:5000> on your choice of web browser
 
 ## Development Notes
-For OSX and Linux: `$ virtual/bin/activate`
+For OSX and Linux: `$ source virtual/bin/activate`
 
 Run `pip install -t lib -r requirements.txt` within virtual environment if requirements is updated
 
