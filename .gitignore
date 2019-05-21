@@ -17,10 +17,15 @@
 
 # Don't use gedit anyway 
 *~
+<<<<<<< HEAD
 
 *.pyc
 
 
+=======
+*.pyc
+
+>>>>>>> 2d527195a4f0ca78b1a9830ec84d04dd2b7a2496
 # Compiled Object files
 *.slo
 *.lo
@@ -49,4 +54,8 @@
 # Executables
 *.exe
 *.out
+<<<<<<< HEAD
 *.app
+=======
+*.app
+>>>>>>> 2d527195a4f0ca78b1a9830ec84d04dd2b7a2496
