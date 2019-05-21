@@ -3,16 +3,27 @@
 <head> 
        
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>National Parks Kiosk</title>
+    <link rel="stylesheet" href="{{ url_for('static',    filename='css/index_style.css') }}">
 
 </head>
-<body>
   <body>
     {% extends "template.html" %}
     {% block content %}
+    <div class="bg">
+      <div id="welcome">Welcome!</div>
+      <div class="active-pink-3 active-pink-4 mb-4" id="centered">
+          <input class="form-control" type="text" placeholder="Begin your search here" aria-label="Search">
+      </div>
+    </div>
+
+    
+    <!-- <img class="d-block w-100" src="../static/images/arches.jpg"> -->
     <!-- <h1> Welcome </h1> -->
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+
+
+    <!-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
           <img class="d-block w-100" src="../static/images/arches.jpg">
@@ -24,8 +35,7 @@
           <img class="d-block w-100" src="../static/images/yosemite.jpg">
         </div>
       </div>
-    </div>
+    </div> -->
     {% endblock %}
   </body>
-
-</body>
+</html>

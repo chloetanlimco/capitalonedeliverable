@@ -1,10 +1,18 @@
-# import urllib.request, json
-from flask import Flask, render_template
+# import sys
+# sys.path.insert(0, 'lib')
 
-# # Configure API request
-# endpoint = "https://developer.nps.gov/api/v1/parks?stateCode=me"
-# HEADERS = {"Authorization":"9vkQK0bSPBKpWJs57opGQYCMaINTJmHqe1vmCAdy"}
-# req = urllib.request.Request(endpoint,headers=HEADERS)
+# import urllib
+# # urllib.urlopen(url)
+
+# import json
+from flask import Flask, render_template, request
+
+# Configure API request
+endpoint = "https://developer.nps.gov/api/v1/parks?stateCode=me"
+HEADERS = {"Authorization":"9vkQK0bSPBKpWJs57opGQYCMaINTJmHqe1vmCAdy"}
+# req = request.headers[HEADERS]
+# ; flask.Request(environ, populate_request=True, shallow=False)
+# req = request.Request(endpoint,headers=HEADERS)
 
 # Initialize Application
 app = Flask(__name__)
