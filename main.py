@@ -4,17 +4,23 @@
 # import urllib
 # # urllib.urlopen(url)
 
-# import json
-from flask import Flask, render_template, request
+
+from flask import Flask, render_template, request, json, jsonify
+import requests
+# import urllib.request, json
+# Configure API request
+
 
 # Configure API request
-endpoint = "https://developer.nps.gov/api/v1/parks?stateCode=me"
-HEADERS = {"Authorization":"9vkQK0bSPBKpWJs57opGQYCMaINTJmHqe1vmCAdy"}
+# endpoint = "https://developer.nps.gov/api/v1/parks?stateCode=me"
+# HEADERS = {"Authorization":"9vkQK0bSPBKpWJs57opGQYCMaINTJmHqe1vmCAdy"}
+# , "Content-Type": "application/json", "q":"yellowstone"
 # req = request.headers[HEADERS]
 # ; flask.Request(environ, populate_request=True, shallow=False)
 # req = request.Request(endpoint,headers=HEADERS)
 
-# Initialize Application
+
+# # Initialize Application
 app = Flask(__name__)
 @app.route("/")
 def home():
@@ -22,6 +28,52 @@ def home():
 @app.route("/about")
 def about():
     return render_template("about.html")
+@app.route('/postjson', methods = ['GET'])
+def postJsonHandler():
+    endpoint = "https://developer.nps.gov/api/v1/parks?stateCode=me"
+    HEADERS = {"Authorization":"9vkQK0bSPBKpWJs57opGQYCMaINTJmHqe1vmCAdy", "content-type":"application/json"}
+    # req = urllib.request.Request(endpoint,headers=HEADERS)
+    # resp = json.load(req)
+    # Additional code would follow
+    # print (resp)
+
+
+
+    # Initialize search set - ids of parks
+    searchset = set()
+    try:
+        # add to set based on search terms entered
+
+
+        empDict = requests.post(endpoint,headers=HEADERS)
+        print ("sigh")
+            # url = endpoint, params = HEADERS)
+        print(empDict)
+        # print(empDict.text)
+        print (empDict.json())
+        # for i in empDict:
+        #     print (i)
+        #     searchset.add(empDict)
+    
+        # convert to json data
+
+
+    except Exception as e:
+        print (e)
+    # create array to allow JSON serialization
+    retval = []
+    for each in searchset:
+        retval.append(each)
+
+    jsonStr = json.dumps(retval)
+    return jsonify(jsonStr)
+#     # jsonStr = json.dumps(employeeList)
+#     # print (request.is_json)
+#     # content = request.get_json()
+#     # print (content)
+#     # return 'JSON posted'
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
-
