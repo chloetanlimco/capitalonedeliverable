@@ -5,6 +5,10 @@ project link: https://npk-ct.appspot.com/
 
 
 ## Running the Program Locally
+Create a new file in the root directory called config.py.
+
+Add: `api_key = "[Your API Key Here]"` to config.py with your own NPS api key obtained at https://www.nps.gov/subjects/developer/get-started.htm
+
 Open folder in the command line and run: `python3 main.py` or `py main.py`
 
 Go to <localhost:5000> on your choice of web browser
