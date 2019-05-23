@@ -28,10 +28,11 @@ def home():
 @app.route("/about")
 def about():
     return render_template("about.html")
-@app.route('/postjson', methods = ['GET'])
+@app.route('/postjson', methods = ['GET', 'POST'])
 def postJsonHandler():
     endpoint = "https://developer.nps.gov/api/v1/parks?stateCode=me"
-    HEADERS = {"Authorization":"9vkQK0bSPBKpWJs57opGQYCMaINTJmHqe1vmCAdy", "content-type":"application/json"}
+    header_ = {"Authorization":"8ksWBtI7Yg9e8aVFU68JY5bN5o7bmcbwCJhdzI3i", "content-type":"application/json", "stateCode":"CA, AZ"}
+    params = {"api_key": "8ksWBtI7Yg9e8aVFU68JY5bN5o7bmcbwCJhdzI3i"}
     # req = urllib.request.Request(endpoint,headers=HEADERS)
     # resp = json.load(req)
     # Additional code would follow
@@ -45,28 +46,31 @@ def postJsonHandler():
         # add to set based on search terms entered
 
 
-        empDict = requests.post(endpoint,headers=HEADERS)
-        print ("sigh")
+        empDict = requests.get(endpoint,params=params,headers=header_)
             # url = endpoint, params = HEADERS)
-        print(empDict)
+        # print(empDict)
         # print(empDict.text)
-        print (empDict.json())
+        # print ("statuscode: " + str(empDict.status_code))
+
         # for i in empDict:
         #     print (i)
-        #     searchset.add(empDict)
-    
+        #     print ("----------------------------------------------")
+        #     searchset.add(i)
         # convert to json data
-
 
     except Exception as e:
         print (e)
-    # create array to allow JSON serialization
-    retval = []
-    for each in searchset:
-        retval.append(each)
 
-    jsonStr = json.dumps(retval)
-    return jsonify(jsonStr)
+    data = empDict.json()
+    return jsonify(data)
+    # # create array to allow JSON serialization
+    # retval = []
+    # for each in searchset:
+    #     print (each)
+    #     retval.append(each)
+
+    # jsonStr = json.dumps(retval)
+    # return render_template("about.html")
 #     # jsonStr = json.dumps(employeeList)
 #     # print (request.is_json)
 #     # content = request.get_json()
