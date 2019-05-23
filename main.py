@@ -2,28 +2,43 @@ from flask import Flask, render_template, request, json, jsonify
 import requests
 
 # Initialize API Request
-endpoint = "https://developer.nps.gov/api/v1/parks?stateCode=me"
+endpoint = "https://developer.nps.gov/api/v1/parks?"
+header_ = {"Authorization":"8ksWBtI7Yg9e8aVFU68JY5bN5o7bmcbwCJhdzI3i", "content-type":"application/json"}
 
 # Initialize Application
 app = Flask(__name__)
 @app.route("/")
 def home():
-    # search = searchterms
-    # if request.method == 'POST':
+    # qs = os.environ["QUERY_STRING"]
+    # if 'searchterms' in qs:
     #     return postjson(search)
+    # search = searchterms
+
+    if request.method == 'POST':
+        return postjson()
 
     return render_template("home.html")
-@app.route("/about")
 
+@app.route("/about")
 def about():
     return render_template("about.html")
+
 @app.route('/postjson', methods = ['GET', 'POST'])
-
 def postJsonHandler():
-    # Initialize page-specific header for request
-    params = {"api_key": "8ksWBtI7Yg9e8aVFU68JY5bN5o7bmcbwCJhdzI3i", "stateCode":"AZ,CA"}
-    header_ = {"Authorization":"8ksWBtI7Yg9e8aVFU68JY5bN5o7bmcbwCJhdzI3i", "content-type":"application/json"}
 
+    # Executing and search (not or); not necessary to parse string
+    search = request.form["searchterms"]
+    # make search friendly to url search
+    # searchurl = ""
+    # for word in search.split():
+    #     searchurl += word
+    #     searchurl + "%20"
+
+    # print (word)
+    print (search)
+
+    # Initialize page-specific params for request
+    params = {"api_key": "8ksWBtI7Yg9e8aVFU68JY5bN5o7bmcbwCJhdzI3i", "q":str(search)}
     try:
         empDict = requests.get(endpoint,params=params,headers=header_)
     except Exception as e:
