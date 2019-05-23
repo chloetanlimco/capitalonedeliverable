@@ -4,46 +4,33 @@
        
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Parks</title>
-    <link rel="stylesheet" href="{{ url_for('static',    filename='css/filter_style.css') }}">
+    <title>Advanced Search</title>
+    <link rel="stylesheet" href="../static/css/filter_style.css">
 
 </head>
-  <body>
+<body>
+
     {% extends "template.html" %}
     {% block content %}
-    <div height: 300px></div>
-    <div id="div1">
-        <p id="p1">This is a paragraph.</p>
-        <p id="p2">This is another paragraph.</p>
-    </div>
-    <!-- <script>
-        for 
-        var para = document.createElement("p");
-        console.log({{numentries}})
-        var node = document.createTextNode({{value|tojson}}[0]['states']);
-        console.log({{value|tojson}}[0]['states']);
-        para.appendChild(node);
-        var element = document.getElementById("div1");
-        element.appendChild(para);
-    </script> -->
-    <script>
-
-        for (i = 0; i < {{numentries}}; i++) {
-            var panel = document.createElement("p");
-            var node = document.createTextNode({{value|tojson}}[i]['fullName']);
-            console.log({{value|tojson}}[i]['states']);
-            panel.appendChild(node);
-
-            var element = document.getElementById("div1");
-            element.appendChild(panel);
-        }
-    </script>
-
-    <div class="container" class="resultblock">
-            {{value}}
+    <div id="spacing">
+        <div id="sidebar">
+            
         </div>
-    <div>{{numentries}}</div>
+        <div id="maincontent">
+            <script>
+                for (i = 0; i < {{numentries}}; i++) {
+                    var panel = document.createElement("p");
+                    var node = document.createTextNode({{value|tojson}}[i]['fullName']);
+                    console.log({{value|tojson}}[i]['states']);
+                    panel.appendChild(node);
     
+                    var element = document.getElementById("maincontent");
+                    element.appendChild(panel);
+                }
+            </script>
+        </div>
+
+    </div>
     {% endblock %}
   </body>
 </html>

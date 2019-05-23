@@ -17,13 +17,20 @@ body, html
 }
 
 #welcome{
-    font-size: 40px;
+    font-size: 50px;
+    font-weight: bold;
+    font-family: Verdana, Geneva, sans-serif;
     text-align: center; 
+    color: white;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
 }
 
 #centered{
     padding-left: 6%;
     padding-right: 6%;
-    position: fixed;
+    position: absolute;
     width: 100%;
+    top: 40%;
 }
+

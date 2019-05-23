@@ -1,0 +1,25 @@
+#spacing {
+    margin-top: 50px;
+    height: 100%;
+    /* display: inline-block; */
+}
+
+.resultblock {
+    margin-top: 100%;
+}
+
+#sidebar {
+    height: 100%; /* 100% Full-height */
+    position: fixed; /* Stay in place */
+    background-color: #F0F0F0;
+    margin-top: 0px;
+    max-width: 220px;
+    width: 30%;
+}
+
+#maincontent {
+    margin-left: 220px;
+    padding: 20px;
+    display: inline-block;
+}
+

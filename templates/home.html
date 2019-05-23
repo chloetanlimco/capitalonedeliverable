@@ -5,17 +5,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>National Parks Kiosk</title>
-    <link rel="stylesheet" href="{{ url_for('static',    filename='css/index_style.css') }}">
+    <link rel="stylesheet" href="../static/css/index_style.css">
 
 </head>
   <body>
     {% extends "template.html" %}
     {% block content %}
     <div class="bg">
-      <div id="welcome">Welcome!</div>
       <div class="active-pink-3 active-pink-4 mb-4" id="centered">
-          <form action='/allparks' method='post'>
-            <input class="form-control" type="text" placeholder="Begin your search here" name="searchterms" aria-label="Search">
+          <div id="welcome">Welcome!</div>
+          <form action='/advancedsearch' method='post'>
+            <input class="form-control" type="text" placeholder="Begin a simple search here" name="searchterms" aria-label="Search">
           </form>
       </div>
     </div>
