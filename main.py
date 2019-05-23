@@ -9,10 +9,6 @@ header_ = {"Authorization":"8ksWBtI7Yg9e8aVFU68JY5bN5o7bmcbwCJhdzI3i", "content-
 app = Flask(__name__)
 @app.route("/")
 def home():
-    # qs = os.environ["QUERY_STRING"]
-    # if 'searchterms' in qs:
-    #     return postjson(search)
-    # search = searchterms
 
     if request.method == 'POST':
         return postjson()
@@ -28,14 +24,6 @@ def postJsonHandler():
 
     # Executing and search (not or); not necessary to parse string
     search = request.form["searchterms"]
-    # make search friendly to url search
-    # searchurl = ""
-    # for word in search.split():
-    #     searchurl += word
-    #     searchurl + "%20"
-
-    # print (word)
-    print (search)
 
     # Initialize page-specific params for request
     params = {"api_key": "8ksWBtI7Yg9e8aVFU68JY5bN5o7bmcbwCJhdzI3i", "q":str(search)}
