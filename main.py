@@ -13,7 +13,7 @@ def stringify(states_array):
 
 # Initialize API Request
 endpoint = "https://developer.nps.gov/api/v1/parks?"
-header_ = {"Authorization": config.api_key, "content-type":"application/json"}
+header_ = {"Authorization": config.api_key}
 
 # Initialize Application
 app = Flask(__name__)
@@ -46,7 +46,9 @@ def advancedsearch():
 
         data = empDict.json()
         print (type(data["data"]))
-        print (data["data"][0]["states"])
+        # print (type(empDict))
+      
+        # print (data["data"][0]["states"])
         # return jsonify(data)
         return render_template("filter.html", numentries=data["total"], value=data["data"])
 

@@ -1,6 +1,7 @@
 .navbar {
     position: fixed;
     margin-bottom: 0px;
+    position: relative;
 }
 
 body {
