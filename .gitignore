@@ -1,7 +1,7 @@
 # The following 3 lines are ignoring all the executables :D
 # Ignore all
 *
-
+config.py
 # Unignore all with extensions
 !*.*
 

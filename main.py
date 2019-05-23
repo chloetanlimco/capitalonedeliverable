@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, json, jsonify
 import requests
+import config
 
 # Initialize API Request
 endpoint = "https://developer.nps.gov/api/v1/parks?"
-header_ = {"Authorization":"8ksWBtI7Yg9e8aVFU68JY5bN5o7bmcbwCJhdzI3i", "content-type":"application/json"}
+header_ = {"Authorization": config.api_key, "content-type":"application/json"}
 
 # Initialize Application
 app = Flask(__name__)
@@ -14,6 +15,10 @@ def home():
         return postjson()
 
     return render_template("home.html")
+
+@app.route("/allparks")
+def allparks():
+    return render_template("filter.html")
 
 @app.route("/about")
 def about():
@@ -26,7 +31,7 @@ def postJsonHandler():
     search = request.form["searchterms"]
 
     # Initialize page-specific params for request
-    params = {"api_key": "8ksWBtI7Yg9e8aVFU68JY5bN5o7bmcbwCJhdzI3i", "q":str(search)}
+    params = {"api_key": config.api_key, "q":str(search)}
     try:
         empDict = requests.get(endpoint,params=params,headers=header_)
     except Exception as e:
