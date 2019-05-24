@@ -96,7 +96,7 @@
                             curr_states.push(stateArray[i]);
                         }
                     }
-                    console.log(curr_states);
+                    console.log("curr states: ${curr_states}");
                 }
             </script>
         </div>
@@ -109,9 +109,12 @@
                     img.id = "icon";
 
                     var panel = document.createElement("div");
-                    panel.id = "resultblock";
+                    panel.id = {{value|tojson}}[i]["parkCode"];
+                    console.log(panel.id);
+                    panel.className = "resultblock";
                     panel.setAttribute("action", "/about");
                     panel.setAttribute("method", "post");
+                    panel.setAttribute("onclick", "window.location.href='{{ url_for( 'about') }}'");
 
                     // title: full name of park
                     var text = document.createElement("h5");

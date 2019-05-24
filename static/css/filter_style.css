@@ -4,12 +4,17 @@
     position: relative;/
 }
 
-#resultblock {
+.resultblock {
     margin-top: 20px;
     background-color: #F0F0F0;
     width: 100%;
     height: 120px;
     padding-top: 10px;
+}
+
+.resultblock:hover {
+    background-color: #D3D3D3;
+    box-shadow: #F0F0F0;
 }
 
 #sidebar {
