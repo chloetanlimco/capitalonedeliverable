@@ -34,3 +34,6 @@ body, html
     top: 40%;
 }
 
+#listitem {
+    padding-left: 6px;
+}

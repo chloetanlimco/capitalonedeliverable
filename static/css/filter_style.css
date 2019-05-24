@@ -20,6 +20,8 @@
     max-width: 220px;
     min-width: 100px;
     width: 20%;
+    padding: 10px;
+    padding-top: 20px;
 }
 
 #maincontent {
@@ -52,6 +54,30 @@
     margin: 0px;
 }
 
-/* #title {
-    margin-top: 5px;
-} */
+a {
+    color: #343a40;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.panel-group {
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+#srchbtn{
+    float:right;
+    height: 23px;
+    padding: 3px;
+    font-size: 13px;
+}
+
+#listtxt{
+    font-size: 15px;
+}
+
+#listbox{
+    padding: 8px;
+}

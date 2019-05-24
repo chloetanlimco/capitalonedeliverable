@@ -14,26 +14,65 @@
     {% block content %}
     <div id="spacing">
         <div id="sidebar">
-            
+            <!-- Search form -->
+            <form action='/advancedsearch' method='post'>
+                <input class="form-control" type="text" placeholder="name, keyword search" name="searchterms" aria-label="Search">
+            </form>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                            <a style="color: #343a40" data-toggle="collapse" href="#test">States</a>
+                    </div>
+                    <div id="test" class="panel-collapse collapse">
+                        <ul class="list-group">
+                            <li id="listbox" class="list-group-item">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                                    <label id="listtxt" class="custom-control-label" for="defaultUnchecked">Default unchecked</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                            <a style="color: #343a40" data-toggle="collapse" href="#test2">Designations</a>
+                    </div>
+                    <div id="test2" class="panel-collapse collapse">
+                        <ul class="list-group">
+                            <li id="listbox" class="list-group-item">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                                    <label id="listtxt" class="custom-control-label" for="defaultUnchecked">Default unchecked</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <button id="srchbtn" type="button" class="btn btn-dark">Update Search</button>
         </div>
         <div id="maincontent">
             <script>
-                console.log({{value|tojson}});
                 for (i = 0; i < {{numentries}}; i++) {
                     var img = document.createElement("IMG");
                     // placeholder since getting other json doesn't work. sigh
-                    img.setAttribute("src", "../static/images/badlands.jpg");
+                    img.setAttribute("src", String({{imgArray|safe}}[i]));
                     img.id = "icon";
-                    // console.log({{value|tojson}}[i]);
-                    // console.log({{value|tojson}}[i]["images"]);
 
                     var panel = document.createElement("div");
                     panel.id = "resultblock";
+                    panel.setAttribute("action", "/about");
+                    panel.setAttribute("method", "post");
 
                     // title: full name of park
                     var text = document.createElement("h5");
                     var node = document.createTextNode({{value|tojson}}[i]['fullName']);
                     text.appendChild(node);
+                    text.id = "desblock";
                     // states + designations
                     var info = document.createElement("p");
                     var state_title = document.createTextNode("States: ");

@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, json, jsonify
 import requests
 import config
 
-#helper function
+#helper functions
 def stringify(states_array):
     retval = ""
     for x in states_array:
@@ -45,20 +45,42 @@ def advancedsearch():
             print (e)
 
         data = empDict.json()
-        print (type(data["data"]))
+
+        # get image array
+        imgArray = []
+        for each in data["data"]:
+            park = each["parkCode"]
+            imgurlendpoint = "https://developer.nps.gov/api/v1/parks?parkCode=" + park + "&fields=images"
+            imgreq = requests.get(imgurlendpoint, params=params, headers=header_)
+            imagesobject = imgreq.json()
+            print (imagesobject["data"][0]["images"][0]["url"])
+            imgArray.append(str(imagesobject["data"][0]["images"][0]["url"]))
+
+        # print (type(data["data"]))
         # print (type(empDict))
-      
-        # print (data["data"][0]["states"])
+
+        # print (data["data"]["images"])
         # return jsonify(data)
-        return render_template("filter.html", numentries=data["total"], value=data["data"])
+        return render_template("filter.html", numentries=data["total"], value=data["data"], imgArray=imgArray, all_states=all_states, curr_states=curr_states)
 
     else:
         params = {"api_key": config.api_key}
         empDict = requests.get(endpoint,params=params,headers=header_)
         data = empDict.json()
-        print (stringify(all_states))
+        
+        # get image array
+        imgArray = []
+        for each in data["data"]:
+            park = each["parkCode"]
+            imgurlendpoint = "https://developer.nps.gov/api/v1/parks?parkCode=" + park + "&fields=images"
+            imgreq = requests.get(imgurlendpoint, params=params, headers=header_)
+            imagesobject = imgreq.json()
+            print (imagesobject["data"][0]["images"][0]["url"])
+            imgArray.append(str(imagesobject["data"][0]["images"][0]["url"]))
+
+        print (imgArray)
         # return jsonify(data)
-        return render_template("filter.html", numentries=data["total"], value=data["data"])
+        return render_template("filter.html", numentries=data["total"], value=data["data"], imgArray=json.dumps(imgArray), all_states=all_states, curr_states=curr_states)
 
 @app.route("/about")
 def about():
