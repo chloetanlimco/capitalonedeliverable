@@ -61,7 +61,7 @@ def advancedsearch():
 
         # print (data["data"]["images"])
         # return jsonify(data)
-        return render_template("filter.html", numentries=data["total"], value=data["data"], imgArray=imgArray, all_states=all_states, curr_states=curr_states)
+        return render_template("filter.html", numentries=data["total"], value=data["data"], imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states))
 
     else:
         params = {"api_key": config.api_key}
@@ -80,7 +80,7 @@ def advancedsearch():
 
         print (imgArray)
         # return jsonify(data)
-        return render_template("filter.html", numentries=data["total"], value=data["data"], imgArray=json.dumps(imgArray), all_states=all_states, curr_states=curr_states)
+        return render_template("filter.html", numentries=data["total"], value=data["data"], imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states))
 
 @app.route("/about")
 def about():
