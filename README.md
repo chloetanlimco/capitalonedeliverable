@@ -16,6 +16,7 @@ project link: https://npk-ct.appspot.com/
 ## Features to be Added
 1. Uncheck/check all boxes in menus
 2. Change url based on search terms
+3. ML algorithm to correctly orient the images returned from the get request on the advanced search page
 
 ## Running the Program Locally
 Create a new file in the root directory called config.py.
