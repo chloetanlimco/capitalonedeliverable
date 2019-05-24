@@ -39,10 +39,13 @@ def advancedsearch():
 
         # Initialize page-specific params for request
         params = {"api_key": config.api_key, "q":str(search)}
-        try:
-            empDict = requests.get(endpoint,params=params,headers=header_)
-        except Exception as e:
-            print (e)
+        for i in range (1, 10):
+            try:
+                empDict = requests.get(endpoint,params=params,headers=header_)
+            except Exception as e:
+                print (e)
+            if (empDict.json()):
+                break
 
         data = empDict.json()
 
@@ -56,51 +59,44 @@ def advancedsearch():
             print (imagesobject["data"][0]["images"][0]["url"])
             imgArray.append(str(imagesobject["data"][0]["images"][0]["url"]))
 
-        # print (type(data["data"]))
-        # print (type(empDict))
-
-        # print (data["data"]["images"])
-        # return jsonify(data)
         return render_template("filter.html", numentries=data["total"], value=data["data"], imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states))
 
     else:
         params = {"api_key": config.api_key}
-        empDict = requests.get(endpoint,params=params,headers=header_)
-        data = empDict.json()
+        for i in range (1, 10):
+            try:
+                empDict = requests.get(endpoint,params=params,headers=header_)
+            except Exception as e:
+                print (e)
+            if (empDict.json()):
+                break
         
-        # get image array
+        data = empDict.json()
+
         imgArray = []
         for each in data["data"]:
             park = each["parkCode"]
             imgurlendpoint = "https://developer.nps.gov/api/v1/parks?parkCode=" + park + "&fields=images"
-            imgreq = requests.get(imgurlendpoint, params=params, headers=header_)
+            for i in range (1, 10):
+                try:
+                    imgreq = requests.get(imgurlendpoint, params=params, headers=header_)
+                except Exception as e:
+                    print (e)
+                if (imgreq.json()):
+                    break
+
             imagesobject = imgreq.json()
-            print (imagesobject["data"][0]["images"][0]["url"])
             imgArray.append(str(imagesobject["data"][0]["images"][0]["url"]))
 
-        print (imgArray)
-        # return jsonify(data)
         return render_template("filter.html", numentries=data["total"], value=data["data"], imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states))
 
 @app.route("/about")
 def about():
     return render_template("about.html")
 
-@app.route('/postjson', methods = ['GET', 'POST'])
-def postJsonHandler():
-
-    # Executing and search (not or); not necessary to parse string
-    search = request.form["searchterms"]
-
-    # Initialize page-specific params for request
-    params = {"api_key": config.api_key, "q":str(search)}
-    try:
-        empDict = requests.get(endpoint,params=params,headers=header_)
-    except Exception as e:
-        print (e)
-
-    data = empDict.json()
-    return jsonify(data)
+@app.route("/park/<string:park_code>")
+def park(park_code):
+    return render_template("park.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -25,7 +25,7 @@
                     <div id="test" class="panel-collapse collapse">
                         <ul class="list-group" id="list">
                             <script>
-                                j = 0;
+                                var j = 0;
                                 for (i = 0; i < 50; i++) {
                                     var stateArray = {{all_states|safe}};
                                     var selectedStates = {{curr_states|safe}};
@@ -109,12 +109,13 @@
                     img.id = "icon";
 
                     var panel = document.createElement("div");
-                    panel.id = {{value|tojson}}[i]["parkCode"];
-                    console.log(panel.id);
+                    var park_code = {{value|tojson}}[i]["parkCode"];
+                    panel.id = park_code;
                     panel.className = "resultblock";
                     panel.setAttribute("action", "/about");
                     panel.setAttribute("method", "post");
-                    panel.setAttribute("onclick", "window.location.href='{{ url_for( 'about') }}'");
+                    var parkurl = "park" + park_code;
+                    panel.setAttribute("onclick", "window.location.href='{{ url_for( 'park' , park_code=park_code) }}'");
 
                     // title: full name of park
                     var text = document.createElement("h5");

@@ -1,0 +1,35 @@
+{
+    "total": "2",
+    "data": [
+      {
+        "states": "AK",
+        "latLong": "lat:61.4182147, long:-142.6028439",
+        "description": "Wrangell St. Elias is a vast national park that rises from the ocean all the way up to 18,008 ft. At 13.2 million acres, the park is the same size as Yellowstone National Park, Yosemite National Park, and Switzerland combined! Within this wild landscape, people continue to live off the land as they have done for centuries. This rugged, beautiful land is filled with opportunities for adventure.",
+        "designation": "National Park & Preserve",
+        "parkCode": "wrst",
+        "id": "B7944940-3FE5-4F9B-80AB-2FD78A4CDD48",
+        "directionsInfo": "The administrative building and main park visitor center are located along the Richardson Highway (Hwy 4), which is a paved state highway that runs through Copper Center, AK. The buildings are 8 miles south of the Glenn Highway and Richardson Highway intersection near Glennallen, Alaska.  This is approximately 200 miles east of Anchorage, AK and 250 miles south of Fairbanks, AK.",
+        "directionsUrl": "http://www.nps.gov/wrst/planyourvisit/wrangell-st-elias-visitor-center.htm",
+        "fullName": "Wrangell - St Elias National Park & Preserve",
+        "url": "https://www.nps.gov/wrst/index.htm",
+        "weatherInfo": "Varies widely depending on location in park and time of year.  Visit http://www.nps.gov/wrst/planyourvisit/weather.htm for detailed information.",
+        "name": "Wrangell - St Elias"
+      },
+      {
+        "states": "ID,MT,WY",
+        "latLong": "lat:44.59824417, long:-110.5471695",
+        "description": "On March 1, 1872, Yellowstone became the first national park for all to enjoy the unique hydrothermal wonders. Today, millions of people come here each year to camp, hike, and enjoy the majesty of the park.",
+        "designation": "National Park",
+        "parkCode": "yell",
+        "id": "F58C6D24-8D10-4573-9826-65D42B8B83AD",
+        "directionsInfo": "Yellowstone National Park covers nearly 3,500 square miles in the northwest corner of Wyoming (3% of the park is in Montana and 1% is in Idaho). Yellowstone has five entrance stations, and several are closed to regular vehicles during winter. It takes many hours to drive between these entrances, so be sure to check the status of roads at the entrance you intend to use while planning your trip and before you arrive.",
+        "directionsUrl": "http://www.nps.gov/yell/planyourvisit/directions.htm",
+        "fullName": "Yellowstone National Park",
+        "url": "https://www.nps.gov/yell/index.htm",
+        "weatherInfo": "Yellowstone's weather can vary quite a bit, even in a single day. In the summer, daytime highs can exceed 70F (25C), only to drop 20 or more degrees when a thunderstorm rolls through. It can snow during any month of the year, and winter lows frequently drop below zero, especially at night. Bring a range of clothing options, including a warm jacket and rain gear, even in the summer.",
+        "name": "Yellowstone"
+      }
+    ],
+    "limit": "50",
+    "start": "1"
+  }
