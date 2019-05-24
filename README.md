@@ -15,6 +15,7 @@ project link: https://npk-ct.appspot.com/
 
 ## Features to be Added
 1. Uncheck/check all boxes in menus
+2. Change url based on search terms
 
 ## Running the Program Locally
 Create a new file in the root directory called config.py.
