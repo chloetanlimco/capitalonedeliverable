@@ -21,6 +21,8 @@ project link: https://npk-ct.appspot.com/
 2. Change url based on search terms
 3. ML algorithm to correctly orient the images returned from the get request on the advanced search page, find the best part of the image to show in individual park entries
 4. Add favicon
+5. Only display relevant tabs on park page (e.g. if there aren't any campgrounds, don't include campground tab)
+6. Location services - user-based output
 
 ## Running the Program Locally
 Create a new file in the root directory called config.py.

@@ -131,8 +131,6 @@ def park(park_code):
             break
     ohobject = ohreq.json()["data"][0]["operatingHours"][0]["standardHours"]
     oharray = [ohobject["sunday"], ohobject["monday"], ohobject["tuesday"], ohobject["wednesday"], ohobject["thursday"], ohobject["friday"], ohobject["saturday"]]
-    print (oharray)
-    print (ohobject)
 
     # VISITOR CENTERS
     vc_url = "https://developer.nps.gov/api/v1/visitorcenters?"
@@ -146,6 +144,16 @@ def park(park_code):
     vc_data = vcreq.json()
 
     # CAMPGROUNDS
+    camp_url = "https://developer.nps.gov/api/v1/campgrounds?"
+    for i in range (1, 10):
+        try:
+            campreq = requests.get(camp_url, params=params, headers=header_)
+        except Exception as e:
+            print (e)
+        if (campreq.json()):
+            break
+    camp_data = campreq.json()
+    print (camp_data)
 
     # ALERTS
     alert_url = "https://developer.nps.gov/api/v1/alerts?"
@@ -165,7 +173,7 @@ def park(park_code):
     # NEWS RELEASES
 
 
-    return render_template("park.html", park_data = data["data"], image = imglink, alert_data = alert_data, oh_data = oharray, vc_data = vc_data, park_code=park_code)
+    return render_template("park.html", park_data = data["data"], image = imglink, alert_data = alert_data, oh_data = oharray, vc_data = vc_data, camp_data = camp_data, park_code=park_code)
 
 if __name__ == "__main__":
     app.run(debug=True)
