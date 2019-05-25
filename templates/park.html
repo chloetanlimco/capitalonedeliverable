@@ -19,26 +19,38 @@
         <div id="titletext">Park Information</div>
     </div>
     <div id="organizer">
+        
         <div class="container" id="des">
+            <div class="sectiontitle">Overview:</div>
+            <div class="txtblock">
+                    {{park_data[0]["description"]}}
+            </div>
+            <div class="txtblock">
+                    {{park_data[0]["directionsInfo"]}}
+            </div>
             <div class="row">
                 <div class="col-sm">
-                    <div class="txtblock">
-                        {{park_data[0]["description"]}}
-                    </div>
+                    
                 </div>
                 <div class="col-sm">
-                    <div class="txtblock">
-                        placeholder
-                        {{park_data[0]["description"]}}
-                    </div>
+
                 </div>
             </div>
         </div>
         <div class="sidebar">
-            <div class="alertsectiontitle">Alerts:</div>
-            <div class="txtblock" id="alert">
-            
+            <div class="sectiontitle">Alerts:</div>
+            <div class="txtblock" id="alert"></div>
+            <div class="sectiontitle">Operating Hours:</div>
+            <div class="txtblock">
+                <div class="tab"><b>Sunday: </b><span>{{oh_data[0]}}</span></div>
+                <div class="tab"><b>Monday: </b><span>{{oh_data[1]}}</span></div>
+                <div class="tab"><b>Tuesday: </b><span>{{oh_data[2]}}</span></div>
+                <div class="tab"><b>Wednesday: </b><span>{{oh_data[3]}}</span></div>
+                <div class="tab"><b>Thursday: </b><span>{{oh_data[4]}}</span></div>
+                <div class="tab"><b>Friday: </b><span>{{oh_data[5]}}</span></div>
+                <div class="tab"><b>Saturday: </b><span>{{oh_data[6]}}</span></div>
             </div>
+
         </div>
     </div>
 
@@ -47,7 +59,6 @@
         console.log({{alert_data|tojson}});
         if ( {{alert_data|tojson}}["total"] == 0)
         {
-            console.log ('sad');
             var alerttext = document.createTextNode("No alerts at this time");
             alertblock.appendChild(alerttext);
         }
@@ -61,7 +72,7 @@
 
                 var titlenode = document.createElement("div");
                 var alerttitle = document.createTextNode({{alert_data|tojson}}["data"][i]["title"]);
-                titlenode.id = "alerttitle";
+                titlenode.className = "boldtxt";
                 titlenode.appendChild(alerticon);
                 titlenode.appendChild(alerttitle);
                 

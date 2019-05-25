@@ -46,14 +46,14 @@
 
 .txtblock {
     color: 	#404040;
-    padding-top: 20px;
+    padding-top: 15px;
     padding-left: 0px;
     margin-left: 0px;
     margin-right: 0px;
     padding-right: 0px;
 }
 
-#alerttitle {
+.boldtxt {
     color: black;
     font-weight: bold;
 }
@@ -77,9 +77,10 @@
     width: 60%;
     margin: 20px;
     float: left;
+    margin-top: 35px;
 }
 
-.alertsectiontitle {
+.sectiontitle {
     color: black;
     font-weight: bold;
     font-size: 20px;
@@ -91,4 +92,8 @@
     margin-right: 4px;
     margin-top: 0px;
     padding-top: 0px;
+}
+
+.tab {
+    margin-left: 20px;
 }

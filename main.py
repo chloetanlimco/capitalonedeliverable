@@ -110,7 +110,7 @@ def park(park_code):
 
     # GET HEADER IMAGE
     imgurlendpoint = "https://developer.nps.gov/api/v1/parks?parkCode=" + park_code + "&fields=images"
-    imgparams = params = {"api_key": config.api_key}
+    imgparams = {"api_key": config.api_key}
     imgreq = requests.get(imgurlendpoint, params=imgparams, headers=header_)
     imagesobject = imgreq.json()
     try:
@@ -119,6 +119,20 @@ def park(park_code):
         print (e)
         imglink = str(imagesobject["data"][0]["images"][0]["url"])
 
+    # OPERATING HOURS
+    ohendpoint = "https://developer.nps.gov/api/v1/parks?parkCode=" + park_code + "&fields=operatingHours"
+    ohparams = {"api_key": config.api_key}
+    for i in range (1, 10):
+        try:
+            ohreq = requests.get(ohendpoint, params=ohparams, headers=header_)
+        except Exception as e:
+            print (e)
+        if (ohreq.json()):
+            break
+    ohobject = ohreq.json()["data"][0]["operatingHours"][0]["standardHours"]
+    oharray = [ohobject["sunday"], ohobject["monday"], ohobject["tuesday"], ohobject["wednesday"], ohobject["thursday"], ohobject["friday"], ohobject["saturday"]]
+    print (oharray)
+    print (ohobject)
 
     # VISITOR CENTERS
 
@@ -143,7 +157,7 @@ def park(park_code):
     # NEWS RELEASES
 
 
-    return render_template("park.html", park_data = data["data"], image = imglink, alert_data = alert_data, park_code=park_code)
+    return render_template("park.html", park_data = data["data"], image = imglink, alert_data = alert_data, oh_data = oharray, park_code=park_code)
 
 if __name__ == "__main__":
     app.run(debug=True)
