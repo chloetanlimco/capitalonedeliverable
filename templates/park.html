@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>{{park_code}}</title>
+    <title>{{park_data[0]["fullName"]}}</title>
     <link rel="stylesheet" href="../static/css/park_style.css">
   </head>
   <body>
@@ -15,7 +15,69 @@
             {{park_data[0]["fullName"]}} 
         </div>
     </div>
+    <div id="titlebar">
+        <div id="titletext">Park Information</div>
+    </div>
+    <div id="organizer">
+        <div class="container" id="des">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="txtblock">
+                        {{park_data[0]["description"]}}
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="txtblock">
+                        placeholder
+                        {{park_data[0]["description"]}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="alertsectiontitle">Alerts:</div>
+            <div class="txtblock" id="alert">
+            
+            </div>
+        </div>
+    </div>
 
+    <script>
+        var alertblock = document.createElement("div");
+        console.log({{alert_data|tojson}});
+        if ( {{alert_data|tojson}}["total"] == 0)
+        {
+            console.log ('sad');
+            var alerttext = document.createTextNode("No alerts at this time");
+            alertblock.appendChild(alerttext);
+        }
+        else {
+            for (i = 0; i < {{alert_data|tojson}}["total"]; i++)
+            {
+                // image
+                var alerticon = document.createElement("IMG");
+                alerticon.src = "/static/images/alerticon.png";
+                alerticon.className = "alerticonstyle";
+
+                var titlenode = document.createElement("div");
+                var alerttitle = document.createTextNode({{alert_data|tojson}}["data"][i]["title"]);
+                titlenode.id = "alerttitle";
+                titlenode.appendChild(alerticon);
+                titlenode.appendChild(alerttitle);
+                
+                var textnode = document.createElement("div");
+                var alerttext = document.createTextNode({{alert_data|tojson}}["data"][i]["description"]);
+                textnode.className = "txtblock";
+                textnode.appendChild(alerttext);
+                alertblock.appendChild(titlenode);
+                alertblock.appendChild(textnode);
+                var enter = document.createElement("br");
+                alertblock.appendChild(enter);
+            }
+        }
+        var element = document.getElementById("alert");
+        element.appendChild(alertblock);
+    </script>
     {% endblock %}
   </body>
 </html>

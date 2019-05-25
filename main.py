@@ -143,7 +143,7 @@ def park(park_code):
     # NEWS RELEASES
 
 
-    return render_template("park.html", park_data = data["data"], image = imglink, park_code=park_code)
+    return render_template("park.html", park_data = data["data"], image = imglink, alert_data = alert_data, park_code=park_code)
 
 if __name__ == "__main__":
     app.run(debug=True)
