@@ -135,12 +135,20 @@ def park(park_code):
     print (ohobject)
 
     # VISITOR CENTERS
+    vc_url = "https://developer.nps.gov/api/v1/visitorcenters?"
+    for i in range (1, 10):
+        try:
+            vcreq = requests.get(vc_url, params=params, headers=header_)
+        except Exception as e:
+            print (e)
+        if (vcreq.json()):
+            break
+    vc_data = vcreq.json()
 
     # CAMPGROUNDS
 
     # ALERTS
     alert_url = "https://developer.nps.gov/api/v1/alerts?"
-    params = {"api_key": config.api_key, "parkCode": park_code}
     for i in range (1, 10):
         try:
             alertreq = requests.get(alert_url, params=params, headers=header_)
@@ -157,7 +165,7 @@ def park(park_code):
     # NEWS RELEASES
 
 
-    return render_template("park.html", park_data = data["data"], image = imglink, alert_data = alert_data, oh_data = oharray, park_code=park_code)
+    return render_template("park.html", park_data = data["data"], image = imglink, alert_data = alert_data, oh_data = oharray, vc_data = vc_data, park_code=park_code)
 
 if __name__ == "__main__":
     app.run(debug=True)

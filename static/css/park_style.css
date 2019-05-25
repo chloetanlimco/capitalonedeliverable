@@ -46,17 +46,31 @@
 
 .txtblock {
     color: 	#404040;
-    padding-top: 15px;
+    padding-top: 5px;
     padding-left: 0px;
     margin-left: 0px;
     margin-right: 0px;
     padding-right: 0px;
+    padding-bottom: 7px;
 }
+
 
 .boldtxt {
     color: black;
     font-weight: bold;
 }
+
+.boldtxtlink {
+    color: 343a40;
+    font-weight: bold;
+}
+
+.boldtxtlink:hover {
+    color: 343a40;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 
 .organizer {
     display: inline-block;
@@ -84,6 +98,7 @@
     color: black;
     font-weight: bold;
     font-size: 20px;
+    padding-bottom: 5px;
 }
 
 .alerticonstyle {
@@ -96,4 +111,8 @@
 
 .tab {
     margin-left: 20px;
+}
+
+#sectionButtons {
+    float: right;
 }

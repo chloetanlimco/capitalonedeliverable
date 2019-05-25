@@ -28,6 +28,72 @@
             <div class="txtblock">
                     {{park_data[0]["directionsInfo"]}}
             </div>
+            <div id="spacing"></div>
+            <div class="sectiontitle">Visitor Centers:</div>
+            <div class="txtblock" id="vc"></div>
+
+            <div id="spacing"></div>
+            <span class="sectiontitle">Additional Information:</span>
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Campgrounds
+                        </button>
+                    </h5>
+                    </div>
+                
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Articles
+                        </button>
+                    </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div class="card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Events
+                        </button>
+                    </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingFour">
+                        <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            News Releases
+                        </button>
+                        </h5>
+                    </div>
+                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                        <div class="card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
             <div class="row">
                 <div class="col-sm">
                     
@@ -55,6 +121,8 @@
     </div>
 
     <script>
+
+        // ALERTS
         var alertblock = document.createElement("div");
         console.log({{alert_data|tojson}});
         if ( {{alert_data|tojson}}["total"] == 0)
@@ -88,6 +156,52 @@
         }
         var element = document.getElementById("alert");
         element.appendChild(alertblock);
+
+        // VISITOR CENTERS
+        var vcblock = document.createElement("div");
+        console.log({{vc_data|tojson}});
+        if ( {{vc_data|tojson}}["total"] == 0)
+        {
+            var vctext = document.createTextNode("No visitor centers available at this park");
+            vcblock.appendChild(vctext);
+        }
+        else {
+            for (i = 0; i < {{vc_data|tojson}}["total"]; i++)
+            {
+                // make title a link if there is extra data
+                if ({{vc_data|tojson}}["data"][i]["directionsUrl"])
+                {
+                    var titlenode = document.createElement("a");
+                    var vctitle = document.createTextNode({{vc_data|tojson}}["data"][i]["name"]);
+                    titlenode.appendChild(vctitle);
+                    titlenode.className = "boldtxtlink";
+                    titlenode.setAttribute("href", {{vc_data|tojson}}["data"][i]["directionsUrl"]);
+                }
+                else{
+                    var titlenode = document.createElement("div");
+                    var vctitle = document.createTextNode({{vc_data|tojson}}["data"][i]["name"]);
+                    titlenode.appendChild(vctitle);
+                    titlenode.className = "boldtxt";
+                }
+                
+                var textnode = document.createElement("div");
+                var vctext = document.createTextNode({{vc_data|tojson}}["data"][i]["description"]);
+                var textnode2 = document.createElement("div");
+                var vctext2 = document.createTextNode({{vc_data|tojson}}["data"][i]["directionsInfo"]);
+                textnode.className = "txtblock";
+                textnode.appendChild(vctext);
+                textnode2.appendChild(vctext2);
+
+                vcblock.appendChild(titlenode);
+                vcblock.appendChild(textnode);
+                vcblock.appendChild(textnode2);
+                var enter = document.createElement("br");
+                vcblock.appendChild(enter);
+            }
+        }
+        var element = document.getElementById("vc");
+        element.appendChild(vcblock);
+
     </script>
     {% endblock %}
   </body>
