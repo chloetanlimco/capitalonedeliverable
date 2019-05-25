@@ -37,9 +37,6 @@
 
 #titletext {
     font-size: 20px;
-    padding: 9px;
-    padding-left: 20px;
-    vertical-align: middle;
     color: white;
     font-family: Verdana, Geneva, sans-serif;
 }
@@ -87,13 +84,6 @@
     padding-right:  calc(10px + 2vw);
 }
 
-#des {
-    width: 60%;
-    margin: 20px;
-    float: left;
-    margin-top: 35px;
-}
-
 .sectiontitle {
     color: black;
     font-weight: bold;
@@ -115,4 +105,52 @@
 
 #sectionButtons {
     float: right;
+}
+
+
+#des {
+    width: 60%;
+    margin: 20px;
+    float: left;
+    margin-top: 35px;
+}
+
+#camp {
+    width: 60%;
+    margin: 20px;
+    float: left;
+    margin-top: 35px;
+    display: none;
+}
+
+#reading {
+    width: 60%;
+    margin: 20px;
+    float: left;
+    margin-top: 35px;
+    display: none;
+}
+
+#news {
+    width: 60%;
+    margin: 20px;
+    float: left;
+    margin-top: 35px;
+    display: none;
+}
+
+#articles {
+    width: 60%;
+    margin: 20px;
+    float: left;
+    margin-top: 35px;
+    display: none;
+}
+
+#events {
+    width: 60%;
+    margin: 20px;
+    float: left;
+    margin-top: 35px;
+    display: none;
 }

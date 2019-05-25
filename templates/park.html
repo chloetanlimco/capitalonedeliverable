@@ -15,94 +15,87 @@
             {{park_data[0]["fullName"]}} 
         </div>
     </div>
+    <!-- <div id="titlebar">
+        <nav class="navbar navbar-expand-lg navbar-dark style="background-color: black">
+            <a class="navbar-brand" id="titletext" href="#">Park Information</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menu">
+                
+            </div>
+        </nav>
+    </div> -->
     <div id="titlebar">
-        <div id="titletext">Park Information</div>
-    </div>
+            <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
+                    <a class="navbar-brand" id="titletext" href="#home" onclick="changeVisibility('des');">Park Information</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                  
+                    <div class="collapse navbar-collapse" id="menu">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#campgrounds" onclick="changeVisibility('camp');">Campgrounds</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#articles" onclick="changeVisibility('articles');"">Articles</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#events" onclick="changeVisibility('events');"">Events</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#news" onclick="changeVisibility('news');"">News Releases</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#reading" onclick="changeVisibility('reading');"">Further Reading</a>
+                            </li>
+                        </ul>
+                    </div>
+                  </nav>
     <div id="organizer">
         
-        <div class="container" id="des">
-            <div class="sectiontitle">Overview:</div>
-            <div class="txtblock">
-                    {{park_data[0]["description"]}}
-            </div>
-            <div class="txtblock">
+        <div id="changinginfo">
+            <div class="container" id="des">
+                <div class="sectiontitle">Overview:</div>
+                <div class="txtblock">
+                        {{park_data[0]["description"]}}
+                </div>
+                <div class="txtblock">
                     {{park_data[0]["directionsInfo"]}}
+                </div>
+                <div id="spacing"></div>
+                <div class="sectiontitle">Visitor Centers:</div>
+                <div class="txtblock" id="vc"></div>
             </div>
-            <div id="spacing"></div>
-            <div class="sectiontitle">Visitor Centers:</div>
-            <div class="txtblock" id="vc"></div>
-
-            <div id="spacing"></div>
-            <span class="sectiontitle">Additional Information:</span>
-            <div class="accordion" id="accordionExample">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Campgrounds
-                        </button>
-                    </h5>
-                    </div>
-                
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                    <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                    </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingTwo">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Articles
-                        </button>
-                    </h5>
-                    </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                    <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                    </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingThree">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Events
-                        </button>
-                    </h5>
-                    </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                    <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                    </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingFour">
-                        <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            News Releases
-                        </button>
-                        </h5>
-                    </div>
-                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-                        <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
+    
+            <div class="container" id="camp">
+                <div class="sectiontitle">Campgrounds:</div>
+                <div> LOREM IPSUM DOLOR SIT AMET</div>
             </div>
- 
-            <div class="row">
-                <div class="col-sm">
-                    
-                </div>
-                <div class="col-sm">
 
-                </div>
+            <div class="container" id="articles">
+                <div class="sectiontitle">Articles:</div>
+                <div> LOREM IPSUM DOLOR SIT AMET</div>
+            </div>
+
+            <div class="container" id="events">
+                <div class="sectiontitle">Events:</div>
+                <div> LOREM IPSUM DOLOR SIT AMET</div>
+            </div>
+
+            <div class="container" id="news">
+                <div class="sectiontitle">News:</div>
+                <div> LOREM IPSUM DOLOR SIT AMET</div>
+            </div>
+
+            <div class="container" id="reading">
+                <div class="sectiontitle">Further Reading:</div>
+                <div> LOREM IPSUM DOLOR SIT AMET</div>
             </div>
         </div>
+
+
         <div class="sidebar">
             <div class="sectiontitle">Alerts:</div>
             <div class="txtblock" id="alert"></div>
@@ -116,11 +109,22 @@
                 <div class="tab"><b>Friday: </b><span>{{oh_data[5]}}</span></div>
                 <div class="tab"><b>Saturday: </b><span>{{oh_data[6]}}</span></div>
             </div>
-
         </div>
     </div>
 
     <script>
+
+        // visibility of divs
+        function changeVisibility(elementid) {
+            document.getElementById("des").style.display = "none";
+            document.getElementById("camp").style.display = "none";
+            document.getElementById("articles").style.display = "none";
+            document.getElementById("events").style.display = "none";
+            document.getElementById("news").style.display = "none";
+            document.getElementById("reading").style.display = "none";
+            document.getElementById(elementid).style.display = "block";
+        }
+
 
         // ALERTS
         var alertblock = document.createElement("div");
