@@ -96,7 +96,7 @@ def about():
 
 @app.route("/park/<string:park_code>")
 def park(park_code):
-    return render_template("park.html")
+    return render_template("park.html", park_code=park_code)
 
 if __name__ == "__main__":
     app.run(debug=True)

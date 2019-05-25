@@ -29,9 +29,6 @@
                                 for (i = 0; i < 50; i++) {
                                     var stateArray = {{all_states|safe}};
                                     var selectedStates = {{curr_states|safe}};
-
-                                    console.log(stateArray);
-                                    console.log(selectedStates);
                                     // check if in selectedStatesArray
                                     // then 
                                     // create HTML components
@@ -96,15 +93,21 @@
                             curr_states.push(stateArray[i]);
                         }
                     }
-                    console.log("curr states: ${curr_states}");
                 }
             </script>
         </div>
         <div id="maincontent">
             <script>
+
+                function redirect_to_park(park_code)
+                {
+                    document.location.href='{{ url_for( 'park', park_code=park_code) }}';
+                    var parkurl = "park/" + park_code;
+                    return parkurl;
+                }
+
                 for (i = 0; i < {{numentries}}; i++) {
                     var img = document.createElement("IMG");
-                    // placeholder since getting other json doesn't work. sigh
                     img.setAttribute("src", String({{imgArray|safe}}[i]));
                     img.id = "icon";
 
@@ -114,14 +117,15 @@
                     panel.className = "resultblock";
                     panel.setAttribute("action", "/about");
                     panel.setAttribute("method", "post");
-                    var parkurl = "park" + park_code;
-                    panel.setAttribute("onclick", "window.location.href='{{ url_for( 'park' , park_code=park_code) }}'");
+                    // creates unique link and redirects users
+                    panel.setAttribute("onclick", "window.location.href=redirect_to_park(this.id)");
 
                     // title: full name of park
                     var text = document.createElement("h5");
                     var node = document.createTextNode({{value|tojson}}[i]['fullName']);
                     text.appendChild(node);
                     text.id = "desblock";
+
                     // states + designations
                     var info = document.createElement("p");
                     var state_title = document.createTextNode("States: ");
