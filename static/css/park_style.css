@@ -3,3 +3,28 @@
     height: 100%;
     position: relative;
 }
+
+#headerImg {
+    padding: 8px;
+    height: 300px;
+    display: table;
+    width: 100%;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+    background-size: cover;
+}
+
+#parkName {
+    font-size: calc(18px + 2vw);
+    display: table-cell;
+    white-space: normal;
+    font-weight: bold;
+    font-family: Verdana, Geneva, sans-serif;
+    text-align: center; 
+    color: black;
+    -webkit-text-stroke-width: calc(0.75px + 0.05vw);
+    -webkit-text-stroke-color: white;
+    vertical-align: middle;
+}

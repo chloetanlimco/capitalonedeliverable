@@ -56,7 +56,6 @@ def advancedsearch():
             imgurlendpoint = "https://developer.nps.gov/api/v1/parks?parkCode=" + park + "&fields=images"
             imgreq = requests.get(imgurlendpoint, params=params, headers=header_)
             imagesobject = imgreq.json()
-            print (imagesobject["data"][0]["images"][0]["url"])
             imgArray.append(str(imagesobject["data"][0]["images"][0]["url"]))
 
         return render_template("filter.html", numentries=data["total"], value=data["data"], imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states))
@@ -96,7 +95,55 @@ def about():
 
 @app.route("/park/<string:park_code>")
 def park(park_code):
-    return render_template("park.html", park_code=park_code)
+
+    # OVERALL PARK REQUEST
+    params = {"api_key": config.api_key, "parkCode":park_code}
+
+    for i in range (1, 10):
+        try:
+            empDict = requests.get(endpoint,params=params,headers=header_)
+        except Exception as e:
+            print (e)
+        if (empDict.json()):
+            break
+    data = empDict.json()
+
+    # GET HEADER IMAGE
+    imgurlendpoint = "https://developer.nps.gov/api/v1/parks?parkCode=" + park_code + "&fields=images"
+    imgparams = params = {"api_key": config.api_key}
+    imgreq = requests.get(imgurlendpoint, params=imgparams, headers=header_)
+    imagesobject = imgreq.json()
+    try:
+        imglink = str(imagesobject["data"][0]["images"][1]["url"])
+    except Exception as e:
+        print (e)
+        imglink = str(imagesobject["data"][0]["images"][0]["url"])
+
+
+    # VISITOR CENTERS
+
+    # CAMPGROUNDS
+
+    # ALERTS
+    alert_url = "https://developer.nps.gov/api/v1/alerts?"
+    params = {"api_key": config.api_key, "parkCode": park_code}
+    for i in range (1, 10):
+        try:
+            alertreq = requests.get(alert_url, params=params, headers=header_)
+        except Exception as e:
+            print (e)
+        if (alertreq.json()):
+            break
+    alert_data = alertreq.json()
+
+    # ARTICLES
+
+    # EVENTS
+
+    # NEWS RELEASES
+
+
+    return render_template("park.html", park_data = data["data"], image = imglink, park_code=park_code)
 
 if __name__ == "__main__":
     app.run(debug=True)

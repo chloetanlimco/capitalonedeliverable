@@ -2,13 +2,20 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>About Flask</title>
+    <title>{{park_code}}</title>
+    <link rel="stylesheet" href="../static/css/park_style.css">
   </head>
   <body>
     {% extends "template.html" %}
     {% block content %}
     <div id="spacing"></div>
-    <div> {{park_code}} </div>
+
+    <div id="headerImg" style="background-image: url({{image}})">
+        <div id="parkName">
+            {{park_data[0]["fullName"]}} 
+        </div>
+    </div>
+
     {% endblock %}
   </body>
 </html>
