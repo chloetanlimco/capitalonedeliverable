@@ -167,13 +167,32 @@ def park(park_code):
     alert_data = alertreq.json()
 
     # ARTICLES
+    articles_url = "https://developer.nps.gov/api/v1/articles?"
+    for i in range (1, 10):
+        try:
+            articlesreq = requests.get(articles_url, params=params, headers=header_)
+        except Exception as e:
+            print (e)
+        if (articlesreq.json()):
+            break
+    articles_data = articlesreq.json()
 
     # EVENTS
+    events_url = "https://developer.nps.gov/api/v1/events?"
+    for i in range (1, 10):
+        try:
+            eventsreq = requests.get(events_url, params=params, headers=header_)
+        except Exception as e:
+            print (e)
+        if (eventsreq.json()):
+            break
+    events_data = eventsreq.json()
+    print(events_data)
 
     # NEWS RELEASES
 
 
-    return render_template("park.html", park_data = data["data"], image = imglink, alert_data = alert_data, oh_data = oharray, vc_data = vc_data, camp_data = camp_data, park_code=park_code)
+    return render_template("park.html", park_data = data["data"], image = imglink, alert_data = alert_data, oh_data = oharray, vc_data = vc_data, camp_data = camp_data, article_data = articles_data, event_data = events_data, park_code=park_code)
 
 if __name__ == "__main__":
     app.run(debug=True)

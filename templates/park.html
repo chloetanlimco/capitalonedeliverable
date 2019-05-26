@@ -15,44 +15,34 @@
             {{park_data[0]["fullName"]}} 
         </div>
     </div>
-    <!-- <div id="titlebar">
-        <nav class="navbar navbar-expand-lg navbar-dark style="background-color: black">
-            <a class="navbar-brand" id="titletext" href="#">Park Information</a>
+    <div id="titlebar">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
+            <a class="navbar-brand" id="titletext" href="#" onclick="changeVisibility('des');">Park Information</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            
             <div class="collapse navbar-collapse" id="menu">
-                
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#s" onclick="changeVisibility('camp');" data-toggle="collapse" data-target=".navbar-collapse.show">Campgrounds</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#" onclick="changeVisibility('articles');" data-toggle="collapse" data-target=".navbar-collapse.show">Articles</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#" onclick="changeVisibility('events');" data-toggle="collapse" data-target=".navbar-collapse.show">Events</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#" onclick="changeVisibility('news');" data-toggle="collapse" data-target=".navbar-collapse.show">News Releases</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#" onclick="changeVisibility('reading');" data-toggle="collapse" data-target=".navbar-collapse.show">Further Reading</a>
+                    </li>
+                </ul>
             </div>
         </nav>
-    </div> -->
-    <div id="titlebar">
-            <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
-                    <a class="navbar-brand" id="titletext" href="" onclick="changeVisibility('des');">Park Information</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
-                  
-                    <div class="collapse navbar-collapse" id="menu">
-                        <ul class="navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="" onclick="changeVisibility('camp');">Campgrounds</a>
-                            </li>
-                            <li class="nav-item active">
-                                <a class="nav-link" href="" onclick="changeVisibility('articles');"">Articles</a>
-                            </li>
-                            <li class="nav-item active">
-                                <a class="nav-link" href="" onclick="changeVisibility('events');"">Events</a>
-                            </li>
-                            <li class="nav-item active">
-                                <a class="nav-link" href="" onclick="changeVisibility('news');"">News Releases</a>
-                            </li>
-                            <li class="nav-item active">
-                                <a class="nav-link" href="" onclick="changeVisibility('reading');"">Further Reading</a>
-                            </li>
-                        </ul>
-                    </div>
-                  </nav>
+    </div>
     <div id="organizer">
         
         <div id="changinginfo">
@@ -76,12 +66,12 @@
 
             <div class="container" id="articles">
                 <div class="sectiontitle">Articles:</div>
-                <div> LOREM IPSUM DOLOR SIT AMET</div>
+                <div class="txtblock" id="articlesbody"></div>
             </div>
 
             <div class="container" id="events">
                 <div class="sectiontitle">Events:</div>
-                <div> LOREM IPSUM DOLOR SIT AMET</div>
+                <div class="txtblock" id="eventsbody"></div>
             </div>
 
             <div class="container" id="news">
@@ -125,10 +115,8 @@
             document.getElementById(elementid).style.display = "block";
         }
 
-
         // ALERTS
         var alertblock = document.createElement("div");
-        console.log({{alert_data|tojson}});
         if ( {{alert_data|tojson}}["total"] == 0)
         {
             var alerttext = document.createTextNode("No alerts at this time");
@@ -163,7 +151,6 @@
 
         // VISITOR CENTERS
         var vcblock = document.createElement("div");
-        console.log({{vc_data|tojson}});
         if ( {{vc_data|tojson}}["total"] == 0)
         {
             var vctext = document.createTextNode("No visitor centers available at this park.");
@@ -208,7 +195,6 @@
 
         // CAMPGROUNDS
         var campblock = document.createElement("div");
-        console.log({{camp_data|tojson}});
         if ( {{camp_data|tojson}}["total"] == 0)
         {
             var camptext = document.createTextNode("No campgrounds available at this park.");
@@ -221,18 +207,21 @@
             weathernode.className = "txtblock";
             campblock.appendChild(weathernode);
 
-            var regulationsnode = document.createElement("div");
-            var regulationstxt = document.createTextNode("Check out campsite regulations here: ");
-            var regulationshref = document.createElement("a");
-            var regulationsurl = document.createTextNode({{camp_data|tojson}}["data"][0]["regulationsurl"]);
-            regulationshref.href = {{camp_data|tojson}}["data"][0]["regulationsurl"];
-            regulationshref.appendChild(regulationsurl);
-            regulationsnode.appendChild(regulationstxt);
-            regulationsnode.appendChild(regulationshref);
-            regulationsnode.className = "txtblock";
-            campblock.appendChild(regulationsnode);
-            var division = document.createElement("br");
-            campblock.appendChild(division);
+            if ({{camp_data|tojson}}["data"][0]["regulationsurl"])
+            {
+                var regulationsnode = document.createElement("div");
+                var regulationstxt = document.createTextNode("Check out campsite regulations here: ");
+                var regulationshref = document.createElement("a");
+                var regulationsurl = document.createTextNode({{camp_data|tojson}}["data"][0]["regulationsurl"]);
+                regulationshref.href = {{camp_data|tojson}}["data"][0]["regulationsurl"];
+                regulationshref.appendChild(regulationsurl);
+                regulationsnode.appendChild(regulationstxt);
+                regulationsnode.appendChild(regulationshref);
+                regulationsnode.className = "txtblock";
+                campblock.appendChild(regulationsnode);
+                var division = document.createElement("br");
+                campblock.appendChild(division);
+            }
 
             for (i = 0; i < {{camp_data|tojson}}["total"]; i++)
             {
@@ -265,6 +254,90 @@
         }
         var element = document.getElementById("campbody");
         element.appendChild(campblock);
+
+
+        // ARTICLES
+        var articleblock = document.createElement("div");
+        console.log({{article_data|tojson}});
+        if ( {{article_data|tojson}}["total"] == 0)
+        {
+            var articletext = document.createTextNode("No articles available for this park.");
+            articleblock.appendChild(articletext);
+        }
+        else {
+
+            for (i = 0; i < {{article_data|tojson}}["data"].length; i++)
+            {
+                // make title a link if there is extra data
+                if ({{article_data|tojson}}["data"][i]["url"])
+                {
+                    var titlenode = document.createElement("a");
+                    var articletitle = document.createTextNode({{article_data|tojson}}["data"][i]["title"]);
+                    titlenode.appendChild(articletitle);
+                    titlenode.className = "boldtxtlink";
+                    titlenode.setAttribute("href", {{article_data|tojson}}["data"][i]["url"]);
+                }
+                else{
+                    var titlenode = document.createElement("div");
+                    var articletitle = document.createTextNode({{article_data|tojson}}["data"][i]["title"]);
+                    titlenode.appendChild(articletitle);
+                    titlenode.className = "boldtxt";
+                }
+                
+                var textnode = document.createElement("div");
+                var articletext = document.createTextNode({{article_data|tojson}}["data"][i]["listingdescription"]);
+                textnode.className = "txtblock";
+                textnode.appendChild(articletext);
+
+                articleblock.appendChild(titlenode);
+                articleblock.appendChild(textnode);
+                var enter = document.createElement("br");
+                articleblock.appendChild(enter);
+            }
+        }
+        var element = document.getElementById("articlesbody");
+        element.appendChild(articleblock);
+
+        // EVENTS
+        var eventblock = document.createElement("div");
+        console.log({{event_data|tojson}});
+        if ( {{event_data|tojson}}["total"] == 0)
+        {
+            var eventtext = document.createTextNode("No events available for this park.");
+            eventblock.appendChild(eventtext);
+        }
+        else {
+            for (i = 0; i < {{event_data|tojson}}["data"].length; i++)
+            {
+                // make title a link if there is extra data
+                if ({{event_data|tojson}}["data"][i]["infourl"])
+                {
+                    var titlenode = document.createElement("a");
+                    titlenode.className = "boldtxtlink";
+                    titlenode.setAttribute("href", {{event_data|tojson}}["data"][i]["infourl"]);
+                }
+                else{
+                    var titlenode = document.createElement("div");
+                    titlenode.className = "boldtxt";
+                }
+                var eventtitle = document.createTextNode({{event_data|tojson}}["data"][i]["title"]);
+                titlenode.appendChild(eventtitle);
+                
+                
+                // given HTML tags
+                var textnode = document.createElement("div");
+                textnode.insertAdjacentHTML('beforeend', {{event_data|tojson}}["data"][i]["description"]);
+                textnode.className = "txtblock";
+
+                eventblock.appendChild(titlenode);
+                eventblock.appendChild(textnode);
+                var enter = document.createElement("br");
+                eventblock.appendChild(enter);
+            }
+        }
+        var element = document.getElementById("eventsbody");
+        element.appendChild(eventblock);
+        
     </script>
     {% endblock %}
   </body>

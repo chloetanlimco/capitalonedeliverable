@@ -23,6 +23,11 @@ project link: https://npk-ct.appspot.com/
 4. Add favicon
 5. Only display relevant tabs on park page (e.g. if there aren't any campgrounds, don't include campground tab)
 6. Location services - user-based output
+7. Photo slides for articles and campgrounds
+8. Creating Google Calendar for Events
+9. Buttons to organize events based on type
+10. Deal with more than the limit of 50 returns (from get request)
+11. Efficiency of get requests - instead of performing a request for every image, just deal with an internal database, and perform a get request every 24 or 48 hours to check for updates to file
 
 ## Running the Program Locally
 Create a new file in the root directory called config.py.
