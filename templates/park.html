@@ -76,7 +76,7 @@
 
             <div class="container" id="news">
                 <div class="sectiontitle">News:</div>
-                <div> LOREM IPSUM DOLOR SIT AMET</div>
+                <div class="txtblock" id="newsbody"></div>
             </div>
 
             <div class="container" id="reading">
@@ -337,6 +337,54 @@
         }
         var element = document.getElementById("eventsbody");
         element.appendChild(eventblock);
+
+
+        // NEWS RELEASES
+        var newsblock = document.createElement("div");
+        console.log({{news_data|tojson}});
+        if ( {{news_data|tojson}}["total"] == 0)
+        {
+            var newstext = document.createTextNode("No news releases available for this park.");
+            newsblock.appendChild(eventtext);
+        }
+        else {
+            for (i = 0; i < {{news_data|tojson}}["data"].length; i++)
+            {
+                // make title a link if there is extra data
+                if ({{news_data|tojson}}["data"][i]["url"])
+                {
+                    var titlenode = document.createElement("a");
+                    titlenode.className = "boldtxtlink";
+                    titlenode.setAttribute("href", {{news_data|tojson}}["data"][i]["url"]);
+                }
+                else{
+                    var titlenode = document.createElement("div");
+                    titlenode.className = "boldtxt";
+                }
+                // news title
+                var newstitle = document.createTextNode({{news_data|tojson}}["data"][i]["title"]);
+                titlenode.appendChild(newstitle);
+                
+                // release date
+                var textnode = document.createElement("div");
+                var newsdate = document.createTextNode({{news_data|tojson}}["data"][i]["releasedate"]);
+                var format = document.createTextNode(":  ");
+                textnode.appendChild(newsdate);
+                textnode.appendChild(format);
+
+                // abstract
+                var newstext = document.createTextNode({{news_data|tojson}}["data"][i]["abstract"]);
+                textnode.className = "txtblock";
+                textnode.appendChild(newstext);
+
+                newsblock.appendChild(titlenode);
+                newsblock.appendChild(textnode);
+                var enter = document.createElement("br");
+                newsblock.appendChild(enter);
+            }
+        }
+        var element = document.getElementById("newsbody");
+        element.appendChild(newsblock);
         
     </script>
     {% endblock %}

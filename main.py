@@ -190,9 +190,19 @@ def park(park_code):
     print(events_data)
 
     # NEWS RELEASES
+    news_url = "https://developer.nps.gov/api/v1/newsreleases?"
+    for i in range (1, 10):
+        try:
+            newsreq = requests.get(news_url, params=params, headers=header_)
+        except Exception as e:
+            print (e)
+        if (newsreq.json()):
+            break
+    news_data = newsreq.json()
+    print(news_data)
 
 
-    return render_template("park.html", park_data = data["data"], image = imglink, alert_data = alert_data, oh_data = oharray, vc_data = vc_data, camp_data = camp_data, article_data = articles_data, event_data = events_data, park_code=park_code)
+    return render_template("park.html", park_data = data["data"], image = imglink, alert_data = alert_data, oh_data = oharray, vc_data = vc_data, camp_data = camp_data, article_data = articles_data, event_data = events_data, news_data = news_data, park_code=park_code)
 
 if __name__ == "__main__":
     app.run(debug=True)
