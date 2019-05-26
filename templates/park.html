@@ -103,11 +103,11 @@
     </div>
     <script type="text/javascript">
         var alert_data = {{ alert_data|tojson }};
-        // var park_data = {{ park_data }};
+        // var park_data = {{ park_data|tojson }};
         // var image = {{ image }};
         // var oh_data = {{oh_data}};
-        // var vc_data = {{vc_data}};
-        // var camp_data = {{camp_data}};
+        var vc_data = {{vc_data|tojson}};
+        var camp_data = {{camp_data|tojson}};
         // var article_data = {{article_data}};
         // var event_data = {{event_data}};
         // var news_data = {{news_data}};
@@ -115,113 +115,7 @@
     <script type="text/javascript" src="../static/js/park.js"></script>
     <script>
 
-        
-        // VISITOR CENTERS
-        var vcblock = document.createElement("div");
-        if ( {{vc_data|tojson}}["total"] == 0)
-        {
-            var vctext = document.createTextNode("No visitor centers available at this park.");
-            vcblock.appendChild(vctext);
-        }
-        else {
-            for (i = 0; i < {{vc_data|tojson}}["total"]; i++)
-            {
-                // make title a link if there is extra data
-                if ({{vc_data|tojson}}["data"][i]["directionsUrl"])
-                {
-                    var titlenode = document.createElement("a");
-                    var vctitle = document.createTextNode({{vc_data|tojson}}["data"][i]["name"]);
-                    titlenode.appendChild(vctitle);
-                    titlenode.className = "boldtxtlink";
-                    titlenode.setAttribute("href", {{vc_data|tojson}}["data"][i]["directionsUrl"]);
-                }
-                else{
-                    var titlenode = document.createElement("div");
-                    var vctitle = document.createTextNode({{vc_data|tojson}}["data"][i]["name"]);
-                    titlenode.appendChild(vctitle);
-                    titlenode.className = "boldtxt";
-                }
-                
-                var textnode = document.createElement("div");
-                var vctext = document.createTextNode({{vc_data|tojson}}["data"][i]["description"]);
-                var textnode2 = document.createElement("div");
-                var vctext2 = document.createTextNode({{vc_data|tojson}}["data"][i]["directionsInfo"]);
-                textnode.className = "txtblock";
-                textnode.appendChild(vctext);
-                textnode2.appendChild(vctext2);
-
-                vcblock.appendChild(titlenode);
-                vcblock.appendChild(textnode);
-                vcblock.appendChild(textnode2);
-                var enter = document.createElement("br");
-                vcblock.appendChild(enter);
-            }
-        }
-        var element = document.getElementById("vc");
-        element.appendChild(vcblock);
-
-        // CAMPGROUNDS
-        var campblock = document.createElement("div");
-        if ( {{camp_data|tojson}}["total"] == 0)
-        {
-            var camptext = document.createTextNode("No campgrounds available at this park.");
-            campblock.appendChild(camptext);
-        }
-        else {
-            var weathernode = document.createElement("div");
-            var weathertxt = document.createTextNode({{camp_data|tojson}}["data"][0]["weatheroverview"]);
-            weathernode.appendChild(weathertxt);
-            weathernode.className = "txtblock";
-            campblock.appendChild(weathernode);
-
-            if ({{camp_data|tojson}}["data"][0]["regulationsurl"])
-            {
-                var regulationsnode = document.createElement("div");
-                var regulationstxt = document.createTextNode("Check out campsite regulations here: ");
-                var regulationshref = document.createElement("a");
-                var regulationsurl = document.createTextNode({{camp_data|tojson}}["data"][0]["regulationsurl"]);
-                regulationshref.href = {{camp_data|tojson}}["data"][0]["regulationsurl"];
-                regulationshref.appendChild(regulationsurl);
-                regulationsnode.appendChild(regulationstxt);
-                regulationsnode.appendChild(regulationshref);
-                regulationsnode.className = "txtblock";
-                campblock.appendChild(regulationsnode);
-                var division = document.createElement("br");
-                campblock.appendChild(division);
-            }
-
-            for (i = 0; i < {{camp_data|tojson}}["total"]; i++)
-            {
-                // make title a link if there is extra data
-                if ({{camp_data|tojson}}["data"][i]["reservationsUrl"])
-                {
-                    var titlenode = document.createElement("a");
-                    var camptitle = document.createTextNode({{camp_data|tojson}}["data"][i]["name"]);
-                    titlenode.appendChild(camptitle);
-                    titlenode.className = "boldtxtlink";
-                    titlenode.setAttribute("href", {{camp_data|tojson}}["data"][i]["reservationsUrl"]);
-                }
-                else{
-                    var titlenode = document.createElement("div");
-                    var camptitle = document.createTextNode({{camp_data|tojson}}["data"][i]["name"]);
-                    titlenode.appendChild(camptitle);
-                    titlenode.className = "boldtxt";
-                }
-                
-                var textnode = document.createElement("div");
-                var camptext = document.createTextNode({{camp_data|tojson}}["data"][i]["description"]);
-                textnode.className = "txtblock";
-                textnode.appendChild(camptext);
-
-                campblock.appendChild(titlenode);
-                campblock.appendChild(textnode);
-                var enter = document.createElement("br");
-                campblock.appendChild(enter);
-            }
-        }
-        var element = document.getElementById("campbody");
-        element.appendChild(campblock);
-
+    
 
         // ARTICLES
         var articleblock = document.createElement("div");
