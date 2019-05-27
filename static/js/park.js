@@ -192,3 +192,89 @@ else {
 }
 var element = document.getElementById("articlesbody");
 element.appendChild(articleblock);
+
+
+// EVENTS
+var eventblock = document.createElement("div");
+if ( event_data["total"] == 0)
+{
+    var eventtext = document.createTextNode("No events available for this park.");
+    eventblock.appendChild(eventtext);
+}
+else {
+    for (i = 0; i < event_data["data"].length; i++)
+    {
+        // make title a link if there is extra data
+        if (event_data["data"][i]["infourl"])
+        {
+            var titlenode = document.createElement("a");
+            titlenode.className = "boldtxtlink";
+            titlenode.setAttribute("href", event_data["data"][i]["infourl"]);
+        }
+        else{
+            var titlenode = document.createElement("div");
+            titlenode.className = "boldtxt";
+        }
+        var eventtitle = document.createTextNode(event_data["data"][i]["title"]);
+        titlenode.appendChild(eventtitle);
+        
+        
+        // given HTML tags
+        var textnode = document.createElement("div");
+        textnode.insertAdjacentHTML('beforeend', event_data["data"][i]["description"]);
+        textnode.className = "txtblock";
+
+        eventblock.appendChild(titlenode);
+        eventblock.appendChild(textnode);
+        var enter = document.createElement("br");
+        eventblock.appendChild(enter);
+    }
+}
+var element = document.getElementById("eventsbody");
+element.appendChild(eventblock);
+
+// NEWS RELEASES
+var newsblock = document.createElement("div");
+if (news_data["total"] == 0)
+{
+    var newstext = document.createTextNode("No news releases available for this park.");
+    newsblock.appendChild(eventtext);
+}
+else {
+    for (i = 0; i < news_data["data"].length; i++)
+    {
+        // make title a link if there is extra data
+        if (news_data["data"][i]["url"])
+        {
+            var titlenode = document.createElement("a");
+            titlenode.className = "boldtxtlink";
+            titlenode.setAttribute("href", news_data["data"][i]["url"]);
+        }
+        else{
+            var titlenode = document.createElement("div");
+            titlenode.className = "boldtxt";
+        }
+        // news title
+        var newstitle = document.createTextNode(news_data["data"][i]["title"]);
+        titlenode.appendChild(newstitle);
+        
+        // release date
+        var textnode = document.createElement("div");
+        var newsdate = document.createTextNode(news_data["data"][i]["releasedate"]);
+        var format = document.createTextNode(":  ");
+        textnode.appendChild(newsdate);
+        textnode.appendChild(format);
+
+        // abstract
+        var newstext = document.createTextNode(news_data["data"][i]["abstract"]);
+        textnode.className = "txtblock";
+        textnode.appendChild(newstext);
+
+        newsblock.appendChild(titlenode);
+        newsblock.appendChild(textnode);
+        var enter = document.createElement("br");
+        newsblock.appendChild(enter);
+    }
+}
+var element = document.getElementById("newsbody");
+element.appendChild(newsblock);
