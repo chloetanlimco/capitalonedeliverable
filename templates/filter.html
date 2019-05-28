@@ -16,7 +16,7 @@
         <div id="sidebar">
             <!-- Search form -->
             <input id="searchbar" class="form-control" type="text" placeholder="name, keyword search" name="searchterms" aria-label="Search">
-
+            <!-- Dropdown menu for states-->
             <div class="panel-group">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-
+            <!-- Dropdown menu for designations -->
             <div class="panel-group">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -45,71 +45,84 @@
                     </div>
                 </div>
             </div>
+            <!-- Onclick, calls post, reloads page with new information -->
             <button id="srchbtn" onclick="reloadUpdated();" value='submit' type="button" class="btn btn-dark">Update Search</button>
         </div>
         <div id="maincontent">
             <script>
+
+                // declaring variables from python script
                 var stateArray = {{all_states|safe}};
                 var selectedStates = {{curr_states|safe}};
                 var numentries = {{numentries}};
                 var imgArray = {{imgArray|safe}};
                 var data = {{value|tojson}};
 
+                // call to get to individual park page
+                function redirect_to_park(park_code)
+                {
+                    document.location.href='{{ url_for( 'park', park_code=park_code) }}';
+                    var parkurl = "park/" + park_code;
+                    return parkurl;
+                }
+                // build the search results content
                 function build()
-{
-    for (i = 0; i < numentries; i++) {
-        var img = document.createElement("IMG");
-        img.setAttribute("src", String(imgArray[i]));
-        img.id = "icon";
+                {
+                    for (i = 0; i < numentries; i++) {
+                        var img = document.createElement("IMG");
+                        img.setAttribute("src", String(imgArray[i]));
+                        img.id = "icon";
 
-        var panel = document.createElement("div");
-        var park_code = data[i]["parkCode"];
-        panel.id = park_code;
-        panel.className = "resultblock";
-        panel.setAttribute("action", "/about");
-        panel.setAttribute("method", "post");
-        // creates unique link and redirects users
-        panel.setAttribute("onclick", "window.location.href=redirect_to_park(this.id)");
+                        var panel = document.createElement("div");
+                        var park_code = data[i]["parkCode"];
+                        panel.id = park_code;
+                        panel.className = "resultblock";
+                        panel.setAttribute("action", "/about");
+                        panel.setAttribute("method", "post");
+                        // creates unique link and redirects users
+                        panel.setAttribute("onclick", "window.location.href=redirect_to_park(this.id)");
 
-        // title: full name of park
-        var text = document.createElement("h5");
-        var node = document.createTextNode(data[i]['fullName']);
-        text.appendChild(node);
-        text.id = "desblock";
+                        // title: full name of park
+                        var text = document.createElement("h5");
+                        var node = document.createTextNode(data[i]['fullName']);
+                        text.appendChild(node);
+                        text.id = "desblock";
 
-        // states + designations
-        var info = document.createElement("p");
-        var state_title = document.createTextNode("States: ");
-        var state = document.createTextNode(data[i]['states']);
-        var enter = document.createElement("br");
-        var designation_title = document.createTextNode("Designation: ");
-        var designation = document.createTextNode(data[i]['designation']);
-        info.appendChild(state_title);
-        info.appendChild(state);
-        info.appendChild(enter);
-        info.appendChild(designation_title);
-        info.appendChild(designation);
-        info.id = "desblock";
+                        // states + designations
+                        var info = document.createElement("p");
+                        var state_title = document.createTextNode("States: ");
+                        var state = document.createTextNode(data[i]['states']);
+                        var enter = document.createElement("br");
+                        var designation_title = document.createTextNode("Designation: ");
+                        var designation = document.createTextNode(data[i]['designation']);
+                        info.appendChild(state_title);
+                        info.appendChild(state);
+                        info.appendChild(enter);
+                        info.appendChild(designation_title);
+                        info.appendChild(designation);
+                        info.id = "desblock";
 
-        // description
-        var descriptionblock = document.createElement("p");
-        var des = document.createTextNode(data[i]['description']);
-        descriptionblock.id = "desblock";
-        descriptionblock.append(des);
+                        // description
+                        var descriptionblock = document.createElement("p");
+                        var des = document.createTextNode(data[i]['description']);
+                        descriptionblock.id = "desblock";
+                        descriptionblock.append(des);
 
-        // add to panel div
-        panel.append(img);
-        panel.append(text);
-        panel.append(info);
-        panel.append(descriptionblock);
+                        // add to panel div
+                        panel.append(img);
+                        panel.append(text);
+                        panel.append(info);
+                        panel.append(descriptionblock);
 
-        var element = document.getElementById("maincontent");
-        element.appendChild(panel);
-    }
-}
-build();
+                        var element = document.getElementById("maincontent");
+                        element.appendChild(panel);
+                    }
+                }
+                build();
             </script>
         </div>
+
+        <!-- importing jquery for .post function -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     </div>
