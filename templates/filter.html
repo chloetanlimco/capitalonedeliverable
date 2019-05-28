@@ -15,172 +15,99 @@
     <div id="spacing">
         <div id="sidebar">
             <!-- Search form -->
-            <!-- <form onsubmit="reloadUpdated();" action='/advancedsearch' method='post'> -->
-                <input id="searchbar" class="form-control" type="text" placeholder="name, keyword search" name="searchterms" aria-label="Search">
+            <input id="searchbar" class="form-control" type="text" placeholder="name, keyword search" name="searchterms" aria-label="Search">
 
-                <div class="panel-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <a style="color: #343a40" data-toggle="collapse" href="#test">States</a>
-                        </div>
-                        <div id="test" class="panel-collapse collapse">
-                            <ul class="list-group" id="list">
-                                <script>
-                                    var j = 0;
-                                    for (i = 0; i < 56; i++) {
-                                        var stateArray = {{all_states|safe}};
-                                        var selectedStates = {{curr_states|safe}};
-
-                                        // create HTML components
-                                        var listitem = document.createElement("li");
-                                        listitem.id = "listbox";
-                                        listitem.className = "list-group-item";
-
-                                        var customdiv = document.createElement("div");
-                                        customdiv.className ="custom-control custom-checkbox";
-                                        
-                                        var checkbox = document.createElement("input");
-                                        checkbox.className = "custom-control-input";
-                                        checkbox.id = stateArray[i];
-                                        checkbox.setAttribute("type", "checkbox");
-                                        // check if state is selected
-                                        if (stateArray[i] == selectedStates[j]) {
-                                            checkbox.checked = true;
-                                        }
-                                        else
-                                        {
-                                            checkbox.checked = false;
-                                            j++;
-                                        }
-                                        
-                                        customdiv.appendChild(checkbox);
-
-                                        var state_label = document.createElement("label");
-                                        state_label.id = "listtext";
-                                        state_label.className ="custom-control-label";
-                                        state_label.setAttribute("for", stateArray[i]);
-                                        var state_label_text = document.createTextNode(stateArray[i]);
-                                        state_label.appendChild(state_label_text);
-                                        customdiv.appendChild(state_label);
-
-                                        listitem.appendChild(customdiv);
-
-                                        var element = document.getElementById("list");
-                                        element.appendChild(listitem);
-                                    }
-                                </script>
-                            </ul>
-                        </div>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a style="color: #343a40" data-toggle="collapse" href="#test">States</a>
+                    </div>
+                    <div id="test" class="panel-collapse collapse">
+                        <ul class="list-group" id="list"></ul>
                     </div>
                 </div>
+            </div>
 
-                <div class="panel-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                                <a style="color: #343a40" data-toggle="collapse" href="#test2">Designations</a>
-                        </div>
-                        <div id="test2" class="panel-collapse collapse">
-                            <ul class="list-group">
-                                <li id="listbox" class="list-group-item">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="Park">
-                                        <label id="listtxt" class="custom-control-label" for="Park">Default unchecked</label>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                            <a style="color: #343a40" data-toggle="collapse" href="#test2">Designations</a>
+                    </div>
+                    <div id="test2" class="panel-collapse collapse">
+                        <ul class="list-group">
+                            <li id="listbox" class="list-group-item">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="Park">
+                                    <label id="listtxt" class="custom-control-label" for="Park">Default unchecked</label>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <button id="srchbtn" onclick="reloadUpdated();" value='submit' type="button" class="btn btn-dark">Update Search</button>
-            <!-- </form> -->
-            <script>
-                function determineSelected() {
-                    var curr_states = new Array();
-                    for (i = 0; i < 56; i++)
-                    {
-                        if (document.getElementById(stateArray[i]).checked == true)
-                        {
-                            curr_states.push(stateArray[i]);
-                        }
-                    }
-                    return curr_states;
-                }
-
-                function reloadUpdated() {
-                    var search = $('#searchbar').val();
-                    $.ajax({
-                        type: "POST",
-                        url: "/advancedsearch",
-                        data: {"list":determineSelected(), "searchterms": search},
-                        success: function(response) {   
-                            document.write(response);
-                        }
-                    });
-                }
-            </script>
+            </div>
+            <button id="srchbtn" onclick="reloadUpdated();" value='submit' type="button" class="btn btn-dark">Update Search</button>
         </div>
         <div id="maincontent">
             <script>
-                
-                function redirect_to_park(park_code)
-                {
-                    document.location.href='{{ url_for( 'park', park_code=park_code) }}';
-                    var parkurl = "park/" + park_code;
-                    return parkurl;
-                }
+                var stateArray = {{all_states|safe}};
+                var selectedStates = {{curr_states|safe}};
+                var numentries = {{numentries}};
+                var imgArray = {{imgArray|safe}};
+                var data = {{value|tojson}};
+
                 function build()
-                {
-                    for (i = 0; i < {{numentries}}; i++) {
-                        var img = document.createElement("IMG");
-                        img.setAttribute("src", String({{imgArray|safe}}[i]));
-                        img.id = "icon";
+{
+    for (i = 0; i < numentries; i++) {
+        var img = document.createElement("IMG");
+        img.setAttribute("src", String(imgArray[i]));
+        img.id = "icon";
 
-                        var panel = document.createElement("div");
-                        var park_code = {{value|tojson}}[i]["parkCode"];
-                        panel.id = park_code;
-                        panel.className = "resultblock";
-                        panel.setAttribute("action", "/about");
-                        panel.setAttribute("method", "post");
-                        // creates unique link and redirects users
-                        panel.setAttribute("onclick", "window.location.href=redirect_to_park(this.id)");
+        var panel = document.createElement("div");
+        var park_code = data[i]["parkCode"];
+        panel.id = park_code;
+        panel.className = "resultblock";
+        panel.setAttribute("action", "/about");
+        panel.setAttribute("method", "post");
+        // creates unique link and redirects users
+        panel.setAttribute("onclick", "window.location.href=redirect_to_park(this.id)");
 
-                        // title: full name of park
-                        var text = document.createElement("h5");
-                        var node = document.createTextNode({{value|tojson}}[i]['fullName']);
-                        text.appendChild(node);
-                        text.id = "desblock";
+        // title: full name of park
+        var text = document.createElement("h5");
+        var node = document.createTextNode(data[i]['fullName']);
+        text.appendChild(node);
+        text.id = "desblock";
 
-                        // states + designations
-                        var info = document.createElement("p");
-                        var state_title = document.createTextNode("States: ");
-                        var state = document.createTextNode({{value|tojson}}[i]['states']);
-                        var enter = document.createElement("br");
-                        var designation_title = document.createTextNode("Designation: ");
-                        var designation = document.createTextNode({{value|tojson}}[i]['designation']);
-                        info.appendChild(state_title);
-                        info.appendChild(state);
-                        info.appendChild(enter);
-                        info.appendChild(designation_title);
-                        info.appendChild(designation);
-                        info.id = "desblock";
+        // states + designations
+        var info = document.createElement("p");
+        var state_title = document.createTextNode("States: ");
+        var state = document.createTextNode(data[i]['states']);
+        var enter = document.createElement("br");
+        var designation_title = document.createTextNode("Designation: ");
+        var designation = document.createTextNode(data[i]['designation']);
+        info.appendChild(state_title);
+        info.appendChild(state);
+        info.appendChild(enter);
+        info.appendChild(designation_title);
+        info.appendChild(designation);
+        info.id = "desblock";
 
-                        // description
-                        var descriptionblock = document.createElement("p");
-                        var des = document.createTextNode({{value|tojson}}[i]['description']);
-                        descriptionblock.id = "desblock";
-                        descriptionblock.append(des);
+        // description
+        var descriptionblock = document.createElement("p");
+        var des = document.createTextNode(data[i]['description']);
+        descriptionblock.id = "desblock";
+        descriptionblock.append(des);
 
-                        // add to panel div
-                        panel.append(img);
-                        panel.append(text);
-                        panel.append(info);
-                        panel.append(descriptionblock);
-        
-                        var element = document.getElementById("maincontent");
-                        element.appendChild(panel);
-                    }
-                }
-                build();
+        // add to panel div
+        panel.append(img);
+        panel.append(text);
+        panel.append(info);
+        panel.append(descriptionblock);
+
+        var element = document.getElementById("maincontent");
+        element.appendChild(panel);
+    }
+}
+build();
             </script>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
