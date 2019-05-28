@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, json, jsonify
+from flask import Flask, render_template, request, json, jsonify, redirect, url_for, make_response
 import requests
 import config
 
@@ -31,14 +31,21 @@ def advancedsearch():
     all_states = ["AL","AK","AZ",'AR',"CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME",
     "MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD",
     "TN","TX","UT","VT","VA","WA","WV","WI","WY"]
-    curr_states = []
+
+    if (request.form.getlist('list[]')):
+        curr_states = request.form.getlist('list[]')
+    else:
+        curr_states = []
 
     if request.method == 'POST':
+        print ("this v1 called")
         # Executing and search (not or); not necessary to parse string
-        search = request.form["searchterms"]
+        search = request.form.get("searchterms")
 
         # Initialize page-specific params for request
-        params = {"api_key": config.api_key, "q":str(search)}
+        print(curr_states)
+        print (stringify(curr_states))
+        params = {"api_key": config.api_key, "q":str(search), "stateCode":stringify(curr_states)}
         for i in range (1, 10):
             try:
                 empDict = requests.get(endpoint,params=params,headers=header_)
@@ -48,20 +55,28 @@ def advancedsearch():
                 break
 
         data = empDict.json()
+        print (data["total"])
 
         # get image array
         imgArray = []
-        for each in data["data"]:
-            park = each["parkCode"]
-            imgurlendpoint = "https://developer.nps.gov/api/v1/parks?parkCode=" + park + "&fields=images"
-            imgreq = requests.get(imgurlendpoint, params=params, headers=header_)
-            imagesobject = imgreq.json()
-            imgArray.append(str(imagesobject["data"][0]["images"][0]["url"]))
-
-        return render_template("filter.html", numentries=data["total"], value=data["data"], imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states))
-
+        # for each in data["data"]:
+        #     park = each["parkCode"]
+        #     imgurlendpoint = "https://developer.nps.gov/api/v1/parks?parkCode=" + park + "&fields=images"
+        #     imgreq = requests.get(imgurlendpoint, params=params, headers=header_)
+        #     imagesobject = imgreq.json()
+        #     imgArray.append(str(imagesobject["data"][0]["images"][0]["url"]))
+        print (search)
+        # print (curr_states)
+        # return redirect(request.url)
+        # if (len(curr_states) == 0):
+        return make_response(render_template("filter.html", numentries=data["total"], value=data["data"], imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states)))
+        # return render_template("filter.html", numentries=data["total"], value=data["data"], imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states))
+        # return redirect(url_for('advancedsearch'))
     else:
-        params = {"api_key": config.api_key}
+        print ("this v2 called")
+        print (curr_states)
+        print (stringify(curr_states))
+        params = {"api_key": config.api_key, "stateCode":stringify(curr_states)}
         for i in range (1, 10):
             try:
                 empDict = requests.get(endpoint,params=params,headers=header_)
@@ -71,23 +86,42 @@ def advancedsearch():
                 break
         
         data = empDict.json()
+        print (data["total"])
 
         imgArray = []
-        for each in data["data"]:
-            park = each["parkCode"]
-            imgurlendpoint = "https://developer.nps.gov/api/v1/parks?parkCode=" + park + "&fields=images"
-            for i in range (1, 10):
-                try:
-                    imgreq = requests.get(imgurlendpoint, params=params, headers=header_)
-                except Exception as e:
-                    print (e)
-                if (imgreq.json()):
-                    break
+        # for each in data["data"]:
+        #     park = each["parkCode"]
+        #     imgurlendpoint = "https://developer.nps.gov/api/v1/parks?parkCode=" + park + "&fields=images"
+        #     for i in range (1, 10):
+        #         try:
+        #             imgreq = requests.get(imgurlendpoint, params=params, headers=header_)
+        #         except Exception as e:
+        #             print (e)
+        #         if (imgreq.json()):
+        #             break
 
-            imagesobject = imgreq.json()
-            imgArray.append(str(imagesobject["data"][0]["images"][0]["url"]))
-
+        #     imagesobject = imgreq.json()
+        #     imgArray.append(str(imagesobject["data"][0]["images"][0]["url"]))
+        # print (curr_states)
+        # if (len(curr_states) == 0):
         return render_template("filter.html", numentries=data["total"], value=data["data"], imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states))
+        # return redirect(url_for('advancedsearch'))
+
+
+@app.route('/currentstates')
+def currentstates():
+    # print(wordlist)
+    # wordlist = request.args.get('wordlist')
+    # search = request.form["wordlist"]
+    # print(search)
+    # # do some stuff
+    # return jsonify(result=wordlist)
+
+    wordlist = json.loads(request.args.get('wordlist'))
+    print ("why")
+    # print(wordlist)
+    # do some stuff
+    return jsonify(result=wordlist)
 
 @app.route("/about")
 def about():
