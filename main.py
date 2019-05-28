@@ -28,9 +28,9 @@ def home():
 @app.route('/advancedsearch', methods = ['GET', 'POST'])
 def advancedsearch():
 
-    all_states = ["AL","AK","AZ",'AR',"CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME",
-    "MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD",
-    "TN","TX","UT","VT","VA","WA","WV","WI","WY"]
+    all_states = ["AL","AK","AS","AZ",'AR',"CA","CO","CT","DC","DE","FL","GA","GU","HI","ID","IL","IN","IA","KS","KY","LA","ME",
+    "MD","MH","MA","MI","FM","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","MP","OH","OK","OR","PW","PA","PR","RI","SC","SD",
+    "TN","TX","UT","VT","VA","VI","WA","WV","WI","WY"]
 
     if (request.form.getlist('list[]')):
         curr_states = request.form.getlist('list[]')
@@ -39,10 +39,13 @@ def advancedsearch():
 
     if request.method == 'POST':
         # Executing and search (not or); not necessary to parse string
-        search = request.form.get("searchterms")
+        if (request.form.get("searchterms")):
+            search = request.form.get("searchterms")
+            # Initialize page-specific params for request
+            params = {"api_key": config.api_key, "q":str(search), "stateCode":stringify(curr_states)}
+        else:
+            params = {"api_key": config.api_key, "stateCode":stringify(curr_states)}
 
-        # Initialize page-specific params for request
-        params = {"api_key": config.api_key, "q":str(search), "stateCode":stringify(curr_states)}
         for i in range (1, 10):
             try:
                 empDict = requests.get(endpoint,params=params,headers=header_)
@@ -60,7 +63,7 @@ def advancedsearch():
             imgurlendpoint = "https://developer.nps.gov/api/v1/parks?parkCode=" + park + "&fields=images"
             imgreq = requests.get(imgurlendpoint, params=params, headers=header_)
             imagesobject = imgreq.json()
-            if (imagesobject["data"][0]["images"][0]["url"]):
+            if (imagesobject["data"][0]["images"]):
                 imgArray.append(str(imagesobject["data"][0]["images"][0]["url"]))
 
         return make_response(render_template("filter.html", numentries=data["total"], value=data["data"], imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states)))
@@ -91,7 +94,7 @@ def advancedsearch():
                     break
 
             imagesobject = imgreq.json()
-            if (imagesobject["data"][0]["images"][0]["url"]):
+            if (imagesobject["data"][0]["images"]):
                 imgArray.append(str(imagesobject["data"][0]["images"][0]["url"]))
 
         return render_template("filter.html", numentries=data["total"], value=data["data"], imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states))

@@ -13,8 +13,9 @@ project link: https://npk-ct.appspot.com/
 ## Challenges
 1. Learning how to handle and work with Flask
 2. Deploying the application to Google Cloud SDK
-3. Dynamically creating new pages and relying on frame works
+3. Dynamically creating new pages and relying on frameworks
 4. Working with the National Parks Service API
+5. Passing an array from JS to Python and timing the page reload
 
 ## Features to be Added
 1. Uncheck/check all boxes in menus
