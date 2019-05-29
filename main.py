@@ -32,12 +32,25 @@ def advancedsearch():
     "MD","MH","MA","MI","FM","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","MP","OH","OK","OR","PW","PA","PR","RI","SC","SD",
     "TN","TX","UT","VT","VA","VI","WA","WV","WI","WY"]
 
-    if (request.form.getlist('list[]')):
-        curr_states = request.form.getlist('list[]')
+    all_designations = ["National Park","National Monument","National Preserve","National Lakeshore","National Seashore",
+        "National River", "Wild and Scenic Riverways", "National Scenic Trails", "National Historic Trails", "National Historic Site",
+        "National Military Park", "National Battlefield Park", "National Battlefield Site", "National Battlefield", "National Monument", 
+        "National Historical Park", "National Historic Sites", "International Historic Site", "National Memorial", "National Recreation Areas", 
+        "National Parkways", "Performing Arts", "Other"]
+
+
+    if (request.form.getlist('states[]')):
+        curr_states = request.form.getlist('states[]')
     else:
         curr_states = []
 
+    if (request.form.getlist('designations[]')):
+        curr_designations = request.form.getlist('designations[]')
+    else:
+        curr_designations = []
+
     if request.method == 'POST':
+
         # Executing and search (not or); not necessary to parse string
         if (request.form.get("searchterms")):
             search = request.form.get("searchterms")
@@ -56,20 +69,29 @@ def advancedsearch():
 
         data = empDict.json()
 
+        # filter out those not of appropriate designation
+        if (len(curr_designations)):
+            output_dict = []
+            for each in curr_designations:
+                output_dict += [x for x in data["data"] if x['designation'] == each]
+            newdata = output_dict
+        else:
+            newdata = data["data"]
+        
         # get image array
         imgArray = []
-        for each in data["data"]:
+        for each in newdata:
             park = each["parkCode"]
             imgurlendpoint = "https://developer.nps.gov/api/v1/parks?parkCode=" + park + "&fields=images"
             imgreq = requests.get(imgurlendpoint, params=params, headers=header_)
             imagesobject = imgreq.json()
-            if (imagesobject["data"][0]["images"]):
+            if (imagesobject and imagesobject["data"][0]["images"]):
                 imgArray.append(str(imagesobject["data"][0]["images"][0]["url"]))
 
-        return make_response(render_template("filter.html", numentries=data["total"], value=data["data"], imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states)))
+        return render_template("filter.html", numentries=len(newdata), value=newdata, imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states), all_designations=json.dumps(all_designations), curr_designations=json.dumps(curr_designations))
 
     else:
-
+        
         params = {"api_key": config.api_key, "stateCode":stringify(curr_states)}
         for i in range (1, 10):
             try:
@@ -81,8 +103,17 @@ def advancedsearch():
         
         data = empDict.json()
 
+        if (len(curr_designations)):
+            output_dict = []
+            for each in curr_designations:
+                output_dict += [x for x in data["data"] if x['designation'] == each]
+            newdata = output_dict
+        else:
+            newdata = data["data"]
+
+
         imgArray = []
-        for each in data["data"]:
+        for each in newdata:
             park = each["parkCode"]
             imgurlendpoint = "https://developer.nps.gov/api/v1/parks?parkCode=" + park + "&fields=images"
             for i in range (1, 10):
@@ -94,10 +125,30 @@ def advancedsearch():
                     break
 
             imagesobject = imgreq.json()
-            if (imagesobject["data"][0]["images"]):
+            if (imagesobject and imagesobject["data"][0]["images"]):
                 imgArray.append(str(imagesobject["data"][0]["images"][0]["url"]))
 
-        return render_template("filter.html", numentries=data["total"], value=data["data"], imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states))
+        return render_template("filter.html", numentries=len(newdata), value=newdata, imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states), all_designations=json.dumps(all_designations), curr_designations=json.dumps(curr_designations))
+
+@app.route('/newData', methods = ['GET', 'POST'])
+def newData():
+
+    if (request.form.getlist('states[]')):
+        curr_states = request.form.getlist('states[]')
+        curr_designations = request.form.getlist('designations[]')
+    else:
+        curr_states = []
+        curr_designations = []
+        
+    print(curr_designations)
+    print(curr_states)
+    # print(request.values)
+    # print(request.form)
+    # print (request.args)
+    # print(request.form['designations'])
+    # print(request.form['states'])
+    return '{} {}'.format(json.dumps(curr_states), json.dumps(curr_designations)) # this will access the data you sent using ajax 
+                        # and return it back in the response
 
 @app.route("/about")
 def about():
@@ -163,7 +214,6 @@ def park(park_code):
         if (campreq.json()):
             break
     camp_data = campreq.json()
-    print (camp_data)
 
     # ALERTS
     alert_url = "https://developer.nps.gov/api/v1/alerts?"

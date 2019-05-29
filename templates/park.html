@@ -85,7 +85,6 @@
             </div>
         </div>
 
-
         <div class="sidebar">
             <div class="sectiontitle">Alerts:</div>
             <div class="txtblock" id="alert"></div>
@@ -102,6 +101,7 @@
         </div>
     </div>
     <script type="text/javascript">
+        // declaring variables
         var alert_data = {{ alert_data|tojson }};
         var park_data = {{ park_data|tojson }};
         var vc_data = {{vc_data|tojson}};
