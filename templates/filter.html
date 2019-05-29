@@ -236,11 +236,11 @@
                         type: 'POST',
                         data: {"states":determineSelectedStates(), "designations":determineSelectedDesignations(), "searchterms": search},
                         success: function (res) { console.log("success") 
-                            window.location.reload()
+                            document.write(res);
                         },
                         // res is the response from the server 
                         // (from return request.data)
-                        error: function (error) { console.log("oopsie") }
+                        error: function (error) { console.log(error) }
                     })
                 }
             </script>

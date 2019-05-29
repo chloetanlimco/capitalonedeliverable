@@ -15,7 +15,7 @@ project link: https://npk-ct.appspot.com/
 2. Deploying the application to Google Cloud SDK
 3. Dynamically creating new pages and relying on frameworks
 4. Working with the National Parks Service API
-5. Passing an array from JS to Python and timing the page reload
+5. Passing an array from JS to Python and timing the page reload (this mechanism is still iffy - wait for 1 min)
 
 ## Features to be Added
 1. Uncheck/check all boxes in menus
