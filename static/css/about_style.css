@@ -1,0 +1,11 @@
+#graphic {
+    width: 100%;
+}
+#title {
+    font-size: calc(18px + 2vw);
+    white-space: normal;
+    font-weight: bold;
+    font-family: Verdana, Geneva, sans-serif;
+    text-align: center; 
+    color: black;
+}
