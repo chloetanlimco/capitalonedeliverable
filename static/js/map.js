@@ -102,9 +102,16 @@ if (park_data)
 {
     console.log(park_data[0]);
     console.log(park_data[0]["latLong"]);
-    
-    var latitude = park_data[0]["latLong"].substr(4, 10);
-    var longitude = park_data[0]["latLong"].substr(21, 31);
+    var text = park_data[0]["latLong"];
+    var regex = /[+-]?\d+(\.\d+)?/g;
+    var array = [];
+    var match;
+    while (match = regex.exec(text)) {
+      array.push(match[0]);
+    }
+
+    var latitude = array[0];
+    var longitude = array[1];
     var lat = parseFloat(latitude);
     var lng = parseFloat(longitude);
     console.log(lat);
