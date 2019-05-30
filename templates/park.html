@@ -49,7 +49,7 @@
             <div class="container" id="des">
                 <div class="sectiontitle">Overview:</div>
                 <div class="txtblock">
-                        {{park_data[0]["description"]}}
+                    {{park_data[0]["description"]}}
                 </div>
                 <div class="txtblock">
                     {{park_data[0]["directionsInfo"]}}
@@ -57,6 +57,7 @@
                 <div id="spacing"></div>
                 <div class="sectiontitle">Visitor Centers:</div>
                 <div class="txtblock" id="vc"></div>
+                <div id="map"></div>
             </div>
     
             <div class="container" id="camp">
@@ -80,8 +81,12 @@
             </div>
 
             <div class="container" id="reading">
-                <div class="sectiontitle">Further Reading:</div>
-                <div> LOREM IPSUM DOLOR SIT AMET</div>
+                <div class="sectiontitle">Lesson Plans:</div>
+                <div class="txtblock" id="edubody"></div>
+                <div class="sectiontitle">People:</div>
+                <div class="txtblock" id="peoplebody"></div>
+                <div class="sectiontitle">Places:</div>
+                <div class="txtblock" id="placesbody"></div>
             </div>
         </div>
 
@@ -100,6 +105,7 @@
             </div>
         </div>
     </div>
+
     <script type="text/javascript">
         // declaring variables
         var alert_data = {{ alert_data|tojson }};
@@ -109,8 +115,16 @@
         var article_data = {{article_data|tojson}};
         var event_data = {{event_data|tojson}};
         var news_data = {{news_data|tojson}};
+        var edu_data = {{edu_data|tojson}};
+        var people_data = {{people_data|tojson}};
+        var places_data = {{places_data|tojson}};
+
     </script>
+    <script type="text/javascript" src="../static/js/map.js"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkC7HE9NbLPg7nyXA-bfoYTfbFyAMTkG0&callback=initMap"></script>
     <script type="text/javascript" src="../static/js/park.js"></script>
+
     {% endblock %}
   </body>
 </html>

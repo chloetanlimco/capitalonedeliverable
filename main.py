@@ -130,29 +130,13 @@ def advancedsearch():
 
         return render_template("filter.html", numentries=len(newdata), value=newdata, imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states), all_designations=json.dumps(all_designations), curr_designations=json.dumps(curr_designations))
 
-@app.route('/newData', methods = ['GET', 'POST'])
-def newData():
-
-    if (request.form.getlist('states[]')):
-        curr_states = request.form.getlist('states[]')
-        curr_designations = request.form.getlist('designations[]')
-    else:
-        curr_states = []
-        curr_designations = []
-        
-    print(curr_designations)
-    print(curr_states)
-    # print(request.values)
-    # print(request.form)
-    # print (request.args)
-    # print(request.form['designations'])
-    # print(request.form['states'])
-    return '{} {}'.format(json.dumps(curr_states), json.dumps(curr_designations)) # this will access the data you sent using ajax 
-                        # and return it back in the response
-
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+@app.route("/getKey")
+def getKey():
+    return config.map_key
 
 @app.route("/park/<string:park_code>")
 def park(park_code):
@@ -247,7 +231,6 @@ def park(park_code):
         if (eventsreq.json()):
             break
     events_data = eventsreq.json()
-    print(events_data)
 
     # NEWS RELEASES
     news_url = "https://developer.nps.gov/api/v1/newsreleases?"
@@ -259,10 +242,42 @@ def park(park_code):
         if (newsreq.json()):
             break
     news_data = newsreq.json()
-    print(news_data)
+
+    # EDUCATIONAL RESOURCES
+    edu_url = "https://developer.nps.gov/api/v1/lessonplans?"
+    for i in range (1, 10):
+        try:
+            edureq = requests.get(edu_url, params=params, headers=header_)
+        except Exception as e:
+            print (e)
+        if (edureq.json()):
+            break
+    edu_data = edureq.json()
+    
+    # PEOPLE
+    people_url = "https://developer.nps.gov/api/v1/people?"
+    for i in range (1, 10):
+        try:
+            peoplereq = requests.get(people_url, params=params, headers=header_)
+        except Exception as e:
+            print (e)
+        if (peoplereq.json()):
+            break
+    people_data = peoplereq.json()
+    
+    # PLACES
+    places_url = "https://developer.nps.gov/api/v1/places?"
+    for i in range (1, 10):
+        try:
+            placesreq = requests.get(places_url, params=params, headers=header_)
+        except Exception as e:
+            print (e)
+        if (placesreq.json()):
+            break
+    places_data = placesreq.json()
 
 
-    return render_template("park.html", park_data = data["data"], image = imglink, alert_data = alert_data, oh_data = oharray, vc_data = vc_data, camp_data = camp_data, article_data = articles_data, event_data = events_data, news_data = news_data, park_code=park_code)
+    return render_template("park.html", park_data = data["data"], image = imglink, alert_data = alert_data, oh_data = oharray, vc_data = vc_data, camp_data = camp_data, article_data = articles_data, event_data = events_data, news_data = news_data, edu_data = edu_data, people_data = people_data, places_data = places_data, park_code=park_code)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -238,7 +238,7 @@ var newsblock = document.createElement("div");
 if (news_data["total"] == 0)
 {
     var newstext = document.createTextNode("No news releases available for this park.");
-    newsblock.appendChild(eventtext);
+    newsblock.appendChild(newstext);
 }
 else {
     for (i = 0; i < news_data["data"].length; i++)
@@ -278,3 +278,149 @@ else {
 }
 var element = document.getElementById("newsbody");
 element.appendChild(newsblock);
+
+
+// EDUCATIONAL RESOURCES
+var edublock = document.createElement("div");
+if (edu_data["total"] == 0)
+{
+    var edutext = document.createTextNode("No lesson plans available for this park.");
+    edublock.appendChild(edutext);
+}
+else {
+    for (i = 0; i < edu_data["data"].length; i++)
+    {
+        // make title a link if there is extra data
+        if (edu_data["data"][i]["url"])
+        {
+            var titlenode = document.createElement("a");
+            titlenode.className = "boldtxtlink";
+            titlenode.setAttribute("href", edu_data["data"][i]["url"]);
+        }
+        else{
+            var titlenode = document.createElement("div");
+            titlenode.className = "boldtxt";
+        }
+        // edu title
+        var edutitle = document.createTextNode(edu_data["data"][i]["title"]);
+        titlenode.appendChild(edutitle);
+        
+        var textnode = document.createElement("div");
+        
+        // grade level
+        var gradenode = document.createElement("div");
+        var level = document.createTextNode("Grade Level(s): ");
+        var edulevel = document.createTextNode(edu_data["data"][i]["gradelevel"]);
+        gradenode.appendChild(level);
+        gradenode.appendChild(edulevel);
+        textnode.appendChild(gradenode);
+
+        // duration
+        var durationnode = document.createElement("div");
+        var duration = document.createTextNode("Duration: ");
+        var eduduration = document.createTextNode(edu_data["data"][i]["duration"]);
+        durationnode.appendChild(duration);
+        durationnode.appendChild(eduduration);
+        textnode.appendChild(durationnode);
+
+        // question objective
+        var edutext = document.createTextNode(edu_data["data"][i]["questionobjective"]);
+        textnode.className = "txtblock";
+        textnode.appendChild(edutext);
+
+        edublock.appendChild(titlenode);
+        edublock.appendChild(textnode);
+        var enter = document.createElement("br");
+        edublock.appendChild(enter);
+    }
+}
+var element = document.getElementById("edubody");
+element.appendChild(edublock);
+
+// PEOPLE
+var peopleblock = document.createElement("div");
+if (people_data["total"] == 0)
+{
+    var peopletext = document.createTextNode("No people available for this park.");
+    peopleblock.appendChild(peopletext);
+    var enter = document.createElement("br");
+    peopleblock.appendChild(enter);
+}
+else {
+    for (i = 0; i < people_data["data"].length; i++)
+    {
+        // make title a link if there is extra data
+        if (people_data["data"][i]["url"])
+        {
+            var titlenode = document.createElement("a");
+            titlenode.className = "boldtxtlink";
+            titlenode.setAttribute("href", people_data["data"][i]["url"]);
+        }
+        else{
+            var titlenode = document.createElement("div");
+            titlenode.className = "boldtxt";
+        }
+        // people title
+        var peopletitle = document.createTextNode(people_data["data"][i]["title"]);
+        titlenode.appendChild(peopletitle);
+        
+        var textnode = document.createElement("div");
+        
+        // listing
+        var peopletext = document.createTextNode(people_data["data"][i]["listingdescription"]);
+        textnode.className = "txtblock";
+        textnode.appendChild(peopletext);
+
+        peopleblock.appendChild(titlenode);
+        peopleblock.appendChild(textnode);
+        var enter = document.createElement("br");
+        peopleblock.appendChild(enter);
+    }
+}
+var element = document.getElementById("peoplebody");
+element.appendChild(peopleblock);
+
+// PLACES
+var placesblock = document.createElement("div");
+if (places_data["total"] == 0)
+{
+    var placestext = document.createTextNode("No places available for this park.");
+    placesblock.appendChild(placestext);
+    var enter = document.createElement("br");
+    placesblock.appendChild(enter);
+}
+else {
+    for (i = 0; i < places_data["data"].length; i++)
+    {
+        // make title a link if there is extra data
+        if (places_data["data"][i]["url"])
+        {
+            var titlenode = document.createElement("a");
+            titlenode.className = "boldtxtlink";
+            titlenode.setAttribute("href", places_data["data"][i]["url"]);
+        }
+        else{
+            var titlenode = document.createElement("div");
+            titlenode.className = "boldtxt";
+        }
+        // places title
+        var placestitle = document.createTextNode(places_data["data"][i]["title"]);
+        titlenode.appendChild(placestitle);
+        
+        var textnode = document.createElement("div");
+        
+        // listing
+        var placestext = document.createTextNode(places_data["data"][i]["listingdescription"]);
+        textnode.className = "txtblock";
+        textnode.appendChild(placestext);
+
+        placesblock.appendChild(titlenode);
+        placesblock.appendChild(textnode);
+        var enter = document.createElement("br");
+        placesblock.appendChild(enter);
+    }
+}
+var element = document.getElementById("placesbody");
+element.appendChild(placesblock);
+
+
