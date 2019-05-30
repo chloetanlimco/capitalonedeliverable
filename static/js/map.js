@@ -86,35 +86,25 @@ function initMap() {
         }
       ]
     });
+    see();
 }
 
+function see(){
+    if (park_data)
+    {
+        var text = park_data[0]["latLong"];
+        var regex = /[+-]?\d+(\.\d+)?/g;
+        var array = [];
+        var match;
+        while (match = regex.exec(text)) {
+        array.push(match[0]);
+        }
 
-function loadMap(latitude, longitude){
-    // var latlng = new google.maps.LatLng(latitude, longitude);
-    console.log(map);
-    if (map) {
-        console.log("here");
-        map.setCenter({lat: latitude, lng: longitude});
+        var latitude = array[0];
+        var longitude = array[1];
+        var lat = parseFloat(latitude);
+        var lng = parseFloat(longitude);
     }
-}
-
-if (park_data)
-{
-    console.log(park_data[0]);
-    console.log(park_data[0]["latLong"]);
-    var text = park_data[0]["latLong"];
-    var regex = /[+-]?\d+(\.\d+)?/g;
-    var array = [];
-    var match;
-    while (match = regex.exec(text)) {
-      array.push(match[0]);
-    }
-
-    var latitude = array[0];
-    var longitude = array[1];
-    var lat = parseFloat(latitude);
-    var lng = parseFloat(longitude);
-    console.log(lat);
-    console.log(lng);
-    loadMap(lat, lng);
+    var newLatlng = new google.maps.LatLng(lat,lng);
+    map.setCenter(newLatlng);
 }
