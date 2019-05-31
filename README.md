@@ -1,5 +1,6 @@
 # National Park Service Information Kiosk
 *Capital One Deliverable: MindSumo Challenge* - Chloe Tanlimco
+
 challenge link: https://www.mindsumo.com/contests/national-park-api
 
 project link: https://npk-ct.appspot.com/
