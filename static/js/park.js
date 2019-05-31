@@ -9,6 +9,15 @@ function changeVisibility(elementid) {
     document.getElementById(elementid).style.display = "block";
 }
 
+// defaults to false
+function translateintoBool(str) {
+    if (str == "1") return true;
+    if (str == "0") return false;
+    if (str == "No") return false;
+    if (str == "Yes - year round") return true;
+    return false;
+}
+
 // ALERTS
 var alertblock = document.createElement("div");
 if ( alert_data["total"] == 0)
@@ -90,6 +99,7 @@ element.appendChild(vcblock);
 
 
 // CAMPGROUNDS
+
 var campblock = document.createElement("div");
 if ( camp_data["total"] == 0)
 {
@@ -136,7 +146,47 @@ else {
             titlenode.appendChild(camptitle);
             titlenode.className = "boldtxt";
         }
-        
+
+        // icon variables
+        var services = [
+            {
+                icon: "../static/images/rvicon.png",
+                boolean: translateintoBool(camp_data["data"][i]["accessibility"]["rvallowed"])
+            },
+            {
+                icon: "../static/images/dumpicon.png",
+                boolean: translateintoBool(camp_data["data"][i]["amenities"]["dumpstation"])
+            },
+            {
+                icon: "../static/images/wifiicon.png",
+                boolean: translateintoBool(camp_data["data"][i]["amenities"]["internetConnectivity"])
+            },
+            {
+                icon: "../static/images/laundryicon.png",
+                boolean: translateintoBool(camp_data["data"][i]["amenities"]["laundry"])
+            },
+            {
+                icon: "../static/images/storeicon.png",
+                boolean: translateintoBool(camp_data["data"][i]["amenities"]["campstore"])
+            },
+            {
+                icon: "../static/images/amphitheatericon.png",
+                boolean: translateintoBool(camp_data["data"][i]["amenities"]["ampitheater"])
+            }
+        ]
+
+        // add image icons
+        for (j = 0; j < services.length; j++)
+        {
+            if (services[j].boolean)
+            {
+                var icon = document.createElement("IMG");
+                icon.src = services[j].icon;
+                icon.className = "iconstyle";
+                titlenode.appendChild(icon);
+            }
+        }
+
         var textnode = document.createElement("div");
         var camptext = document.createTextNode(camp_data["data"][i]["description"]);
         textnode.className = "txtblock";

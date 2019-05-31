@@ -162,3 +162,12 @@
 #map {
     height: 500px;
 }
+
+.iconstyle {
+    height: 24px;
+    width: 24px;
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-right: 3px;
+    float: right;
+}

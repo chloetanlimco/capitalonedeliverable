@@ -1,4 +1,3 @@
-                
 // figure out which states are selected
 function determineSelectedStates() {
     var curr_states = new Array();
@@ -47,6 +46,15 @@ function reloadUpdated() {
 // build the search results content
 function build()
 {
+    if (numentries == 0)
+    {
+        var panel = document.createElement("div");
+        var text = document.createTextNode("No results :(.");
+        panel.appendChild(text);
+        var element = document.getElementById("maincontent");
+        element.appendChild(panel);
+    }
+
     // Creating menu (states)
     var j = 0;
     for (i = 0; i < 56; i++) {
@@ -179,4 +187,5 @@ function build()
         var element = document.getElementById("maincontent");
         element.appendChild(panel);
     }
+    
 }

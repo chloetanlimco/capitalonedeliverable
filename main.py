@@ -11,7 +11,7 @@ def stringify(states_array):
     retval = retval[:-1]
     return retval
 
-# Initialize API Request
+# Initialize NPS API Request
 endpoint = "https://developer.nps.gov/api/v1/parks?"
 header_ = {"Authorization": config.api_key}
 
@@ -275,7 +275,6 @@ def park(park_code):
         if (placesreq.json()):
             break
     places_data = placesreq.json()
-
 
     return render_template("park.html", park_data = data["data"], image = imglink, alert_data = alert_data, oh_data = oharray, vc_data = vc_data, camp_data = camp_data, article_data = articles_data, event_data = events_data, news_data = news_data, edu_data = edu_data, people_data = people_data, places_data = places_data, park_code=park_code)
 
