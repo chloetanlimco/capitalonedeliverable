@@ -36,7 +36,7 @@ def advancedsearch():
         "National River", "Wild and Scenic Riverways", "National Scenic Trails", "National Historic Trails", "National Historic Site",
         "National Military Park", "National Battlefield Park", "National Battlefield Site", "National Battlefield", "National Monument", 
         "National Historical Park", "National Historic Sites", "International Historic Site", "National Memorial", "National Recreation Areas", 
-        "National Parkways", "Performing Arts", "Other"]
+        "National Parkways", "Performing Arts"]
 
 
     if (request.form.getlist('states[]')):

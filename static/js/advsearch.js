@@ -26,7 +26,6 @@ function determineSelectedDesignations() {
 
 // reload advancedsearch with appropriate filters
 function reloadUpdated() {
-    console.log("clicked");
     var search = $('#searchbar').val();
 
     var str = 'This is some data';
@@ -36,7 +35,6 @@ function reloadUpdated() {
         data: {"states":determineSelectedStates(), "designations":determineSelectedDesignations(), "searchterms": search},
         success: function (res) {
             document.write(res);
-            console.log("success");
         }, // res is the response from the server 
         // (from return request.data)
         error: function (error) { console.log(error) }

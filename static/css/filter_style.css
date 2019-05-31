@@ -18,7 +18,7 @@
 }
 
 #sidebar {
-    height: 100%; /* 100% Full-height */
+    height: 94%; /* 100% Full-height */
     position: fixed; /* Stay in place */
     background-color: #F0F0F0;
     margin-top: 0px;
@@ -74,6 +74,7 @@ a:hover {
 }
 
 #srchbtn{
+    margin-top: 8px;
     float:right;
     height: 23px;
     padding: 3px;
