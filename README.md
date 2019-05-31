@@ -1,5 +1,6 @@
 # National Park Service Information Kiosk
 *Capital One Deliverable: MindSumo Challenge* - Chloe Tanlimco
+challenge link: https://www.mindsumo.com/contests/national-park-api
 
 project link: https://npk-ct.appspot.com/
 
@@ -8,27 +9,32 @@ project link: https://npk-ct.appspot.com/
 - Bootstrap
 
 ## Features
-
+- Advanced Search allows for name and filtering based on states and designations
+- Individual Park page styled similar to National Park pamphlets
+- Park pages includes overview, visitor centers, campgrounds, articles, events, news releases, alerts, operating hours, and further readings (educational resources, including lesson plans, people, and places)
+- Maps with visitor center and campground icons, if such things and their coordinates are available
+- Campgrounds with icons based on amenities and accessibilities
 
 ## Challenges
-1. Learning how to handle and work with Flask
-2. Deploying the application to Google Cloud SDK
-3. Dynamically creating new pages and relying on frameworks
-4. Working with the National Parks Service API
-5. Passing an array from JS to Python and timing the page reload (this mechanism is still iffy - wait for 1 min)
+- Learning how to handle and work with Flask
+- Deploying the application to Google Cloud SDK
+- Dynamically creating new pages and relying on frameworks
+- Working with the National Parks Service API
+- Passing an array from JS to Python and timing the page reload (this mechanism is still iffy - please be patient as it loads)
+- order of calling, updating when data comes in
 
-## Features to be Added
-1. Uncheck/check all boxes in menus
-2. Change url based on search terms
-3. ML algorithm to correctly orient the images returned from the get request on the advanced search page, find the best part of the image to show in individual park entries
-4. Add favicon
-5. Only display relevant tabs on park page (e.g. if there aren't any campgrounds, don't include campground tab)
-6. Location services - user-based output
-7. Photo slides for articles and campgrounds
-8. Creating Google Calendar for Events
-9. Buttons to organize events based on type
-10. Deal with more than the limit of 50 returns (from get request)
-11. Efficiency of get requests - instead of performing a request for every image, just deal with an internal database, and perform a get request every 24 or 48 hours to check for updates to file
+## Future Steps
+- Uncheck/check all boxes in menus
+- Change url based on search terms
+- ML algorithm to correctly orient the images returned from the get request on the advanced search page, find the best part of the image to show in individual park entries
+- Add favicon
+- Only display relevant tabs on park page (e.g. if there aren't any campgrounds, don't include campground tab)
+- Location services - user-based output
+- Photo slides for articles and campgrounds
+- Creating Google Calendar for Events
+- Buttons to organize events based on type
+- Deal with more than the limit of 50 returns (from get request)
+- Efficiency of get requests - instead of performing a request for every image, just deal with an internal database, and perform a get request every 24 or 48 hours to check for updates to file
 
 ## Running the Program Locally
 Create a new file in the root directory called config.py.
