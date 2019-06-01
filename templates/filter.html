@@ -4,7 +4,7 @@
        
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Advanced Search</title>
+    <title>National Parks Kiosk | Search</title>
     <link rel="stylesheet" href="../static/css/filter_style.css">
     <script src="../static/js/advsearch.js"></script>
 </head>
@@ -51,6 +51,7 @@
                 // declaring variables from python script
                 var stateArray = {{all_states|safe}};
                 var selectedStates = {{curr_states|safe}};
+                console.log(selectedStates);
                 var numentries = {{numentries}};
                 var imgArray = {{imgArray|safe}};
                 var data = {{value|tojson}};
@@ -74,6 +75,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
     </div>
+    <div id="loading"></div>
     {% endblock %}
   </body>
 </html>

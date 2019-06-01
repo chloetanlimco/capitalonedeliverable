@@ -50,6 +50,7 @@ function reloadUpdated() {
 // build the search results content
 function build()
 {
+    console.log(selectedStates);
     if (numentries == 0)
     {
         var panel = document.createElement("div");
@@ -76,13 +77,13 @@ function build()
         checkbox.id = stateArray[i];
         checkbox.setAttribute("type", "checkbox");
         // check if state is selected
-        if (stateArray[i] == selectedStates[j]) {
+        if (stateArray[i] === selectedStates[j]) {
             checkbox.checked = true;
+            j++;
         }
         else
         {
             checkbox.checked = false;
-            j++;
         }
         
         customdiv.appendChild(checkbox);
@@ -157,10 +158,13 @@ function build()
         panel.setAttribute("onclick", "window.location.href=redirect_to_park(this.id)");
 
         // title: full name of park
+        var titlediv = document.createElement("div");
         var text = document.createElement("h5");
         var node = document.createTextNode(data[i]['fullName']);
         text.appendChild(node);
-        text.id = "desblock";
+        text.className = "desblock";
+        titlediv.appendChild(text);
+        titlediv.id ="parktitle";
 
         // states + designations
         var info = document.createElement("p");
@@ -174,17 +178,17 @@ function build()
         info.appendChild(enter);
         info.appendChild(designation_title);
         info.appendChild(designation);
-        info.id = "desblock";
+        info.className = "desblock";
 
         // description
         var descriptionblock = document.createElement("p");
         var des = document.createTextNode(data[i]['description']);
-        descriptionblock.id = "desblock";
+        descriptionblock.className = "desblock";
         descriptionblock.append(des);
 
         // add to panel div
         panel.append(img);
-        panel.append(text);
+        panel.append(titlediv);
         panel.append(info);
         panel.append(descriptionblock);
 

@@ -2,12 +2,12 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>{{park_data[0]["fullName"]}}</title>
-    <link rel="stylesheet" href="../static/css/park_style.css">
+    <title>National Parks Kiosk | {{park_data[0]["fullName"]}}</title>
   </head>
   <body>
     {% extends "template.html" %}
     {% block content %}
+    <link rel="stylesheet" href="../static/css/park_style.css">
     <div id="spacing"></div>
 
     <div id="headerImg" style="background-image: url({{image}})">
@@ -25,19 +25,19 @@
             <div class="collapse navbar-collapse" id="menu">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#s" onclick="changeVisibility('camp');" data-toggle="collapse" data-target=".navbar-collapse.show">Campgrounds</a>
+                        <a class="nav-link" id="listitem" href="#" onclick="changeVisibility('camp');" data-toggle="collapse" data-target=".navbar-collapse.show">Campgrounds</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#" onclick="changeVisibility('articles');" data-toggle="collapse" data-target=".navbar-collapse.show">Articles</a>
+                        <a class="nav-link" id="listitem" href="#" onclick="changeVisibility('articles');" data-toggle="collapse" data-target=".navbar-collapse.show">Articles</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#" onclick="changeVisibility('events');" data-toggle="collapse" data-target=".navbar-collapse.show">Events</a>
+                        <a class="nav-link" id="listitem" href="#" onclick="changeVisibility('events');" data-toggle="collapse" data-target=".navbar-collapse.show">Events</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#" onclick="changeVisibility('news');" data-toggle="collapse" data-target=".navbar-collapse.show">News Releases</a>
+                        <a class="nav-link" id="listitem" href="#" onclick="changeVisibility('news');" data-toggle="collapse" data-target=".navbar-collapse.show">News Releases</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#" onclick="changeVisibility('reading');" data-toggle="collapse" data-target=".navbar-collapse.show">Further Reading</a>
+                        <a class="nav-link" id="listitem" href="#" onclick="changeVisibility('reading');" data-toggle="collapse" data-target=".navbar-collapse.show">Further Reading</a>
                     </li>
                 </ul>
             </div>

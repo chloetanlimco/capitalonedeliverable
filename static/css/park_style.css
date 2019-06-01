@@ -29,6 +29,10 @@
     vertical-align: middle;
 }
 
+#listitem:hover {
+    color:#989ba0;
+}
+
 #titlebar {
     width: 100%;
     background-color: black;
@@ -41,6 +45,10 @@
     font-family: Verdana, Geneva, sans-serif;
 }
 
+#titletext:hover {
+    color: #989ba0;
+}
+
 .txtblock {
     color: 	#404040;
     padding-top: 5px;
@@ -50,7 +58,6 @@
     padding-right: 0px;
     padding-bottom: 7px;
 }
-
 
 .boldtxt {
     color: black;

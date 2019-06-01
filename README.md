@@ -15,6 +15,7 @@ project link: https://npk-ct.appspot.com/
 - Park pages includes overview, visitor centers, campgrounds, articles, events, news releases, alerts, operating hours, and further readings (educational resources, including lesson plans, people, and places)
 - Maps with visitor center and campground icons, if such things and their coordinates are available
 - Campgrounds with icons based on amenities and accessibilities
+- Option to show all search results (will take a considerably lengthier time to load)
 
 ## Challenges
 - Learning how to handle and work with Flask
@@ -22,7 +23,7 @@ project link: https://npk-ct.appspot.com/
 - Dynamically creating new pages and relying on frameworks
 - Working with the National Parks Service API
 - Passing an array from JS to Python and timing the page reload (this mechanism is still iffy - please be patient as it loads)
-- order of calling, updating when data comes in
+- Order of calling, updating when data comes in
 
 ## Future Steps
 - Uncheck/check all boxes in menus

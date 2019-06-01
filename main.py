@@ -2,14 +2,29 @@ from flask import Flask, render_template, request, json, jsonify, redirect, url_
 import requests
 import config
 
-#helper functions
-def stringify(states_array):
+# helper functions
+# convert array to format for search terms
+def stringify(states_array): 
     retval = ""
     for x in states_array:
         retval += x
         retval += ","
     retval = retval[:-1]
     return retval
+
+# check if search term is a state - binary search
+def searchforstate(array, left, right, term):
+    # base case
+    print("left: " + str(left) + ", right: " + str(right))
+    if right < left:
+        return -1
+    midpoint = int((left + right) / 2)
+    if (array[midpoint] == term):
+        return midpoint
+    elif array[midpoint] > term:
+        return searchforstate(array, left, midpoint-1, term)
+    else:
+        return searchforstate(array, midpoint+1, right, term)
 
 # Initialize NPS API Request
 endpoint = "https://developer.nps.gov/api/v1/parks?"
@@ -24,14 +39,17 @@ def home():
 
     if request.method == 'POST':
         return advancedsearch()
-
     return render_template("home.html")
 
 @app.route('/advancedsearch', methods = ['GET', 'POST'])
 def advancedsearch():
 
-    all_states = ["AL","AK","AS","AZ",'AR',"CA","CO","CT","DC","DE","FL","GA","GU","HI","ID","IL","IN","IA","KS","KY","LA","ME",
-    "MD","MH","MA","MI","FM","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","MP","OH","OK","OR","PW","PA","PR","RI","SC","SD",
+    states_names = ["alabama","alaska","american samoa","arizona",'arkansas',"california","colorado","connecticut","district of columbia","delaware","federated states of micronesia","florida","georgia","guam","hawaii","idaho","illinois","indiana","iowa","kansas","kentucky","louisiana","maine",
+        "maryland","marshall islands","massachusetts","michigan","minnesota","mississippi","missouri","montana","nebraska","nevada","new hampshire","new jersey","new mexico","new york","north carolina","north dakota","northern mariana islands","ohio","oklahoma","oregon","palau","pennsylvania","puerto rico","rhode island","south carolina","south dakota",
+        "tennessee","texas","utah","vermont","virginia","virgin islands","washington","west virginia","wisconsin","wyoming"]
+
+    all_states = ["AL","AK","AS","AZ",'AR',"CA","CO","CT","DC","DE","FM","FL","GA","GU","HI","ID","IL","IN","IA","KS","KY","LA","ME",
+    "MD","MH","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","MP","OH","OK","OR","PW","PA","PR","RI","SC","SD",
     "TN","TX","UT","VT","VA","VI","WA","WV","WI","WY"]
 
     all_designations = ["National Park","National Monument","National Preserve","National Lakeshore","National Seashore",
@@ -60,10 +78,22 @@ def advancedsearch():
     # Executing and search (not or); not necessary to parse string
     if (request.form.get("searchterms")):
         search = request.form.get("searchterms")
-        # Initialize page-specific params for request
-        params = {"api_key": config.api_key, "q":str(search), "stateCode":stringify(curr_states), "limit": limit}
+        index = searchforstate(states_names, 0, int(len(states_names)-1), search.lower())
+        print (index)
+        if (index != -1):
+            # add it to curr_states in its correct position
+            i = 0
+            if (len(curr_states)):
+                while (curr_states[i] < search):
+                    i += 1
+            curr_states.insert(i, all_states[index])
+            print(curr_states)
+            # Initialize page-specific params for request
+            params = {"api_key": config.api_key, "stateCode":stringify(curr_states), "limit": limit}
+        else:
+            params = {"api_key": config.api_key, "q":str(search), "stateCode":stringify(curr_states), "limit": limit}
     else:
-        params = {"api_key": config.api_key, "stateCode":stringify(curr_states)}
+        params = {"api_key": config.api_key, "stateCode":stringify(curr_states), "limit": limit}
 
     for i in range (1, 10):
         try:

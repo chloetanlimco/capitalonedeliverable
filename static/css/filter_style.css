@@ -15,6 +15,16 @@
 .resultblock:hover {
     background-color: #D3D3D3;
     box-shadow: #F0F0F0;
+    cursor: pointer;
+}
+
+.resultblock:hover #parktitle {
+    text-decoration: underline;
+}
+
+#parktitle {
+    padding: 0px;
+    margin: 0px;
 }
 
 #sidebar {
@@ -51,7 +61,7 @@
     background-size:     cover;
 }
 
-#desblock {
+.desblock {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
