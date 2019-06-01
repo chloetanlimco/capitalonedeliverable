@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>National Parks Kiosk | Search</title>
     <link rel="stylesheet" href="../static/css/filter_style.css">
+    <link rel="stylesheet" href="../static/css/loading_style.css">
     <script src="../static/js/advsearch.js"></script>
+
 </head>
 <body>
     {% extends "template.html" %}
     {% block content %}
+
     <div id="spacing">
         <div id="sidebar">
             <!-- Search form -->
@@ -19,7 +22,7 @@
                 <input class="custom-control-input" type="checkbox" id="showall">
                 <label id="listtext" class="custom-control-label" for="showall">View All Results</label>
             </div>
-    
+
             <!-- Dropdown menu for states-->
             <div class="panel-group">
                 <div class="panel panel-default">
@@ -45,13 +48,20 @@
             <!-- Onclick, calls post, reloads page with new information -->
             <button id="srchbtn" onclick="reloadUpdated();" value='submit' type="button" class="btn btn-dark">Update Search</button>
         </div>
-        <div id="maincontent">
-            <script>
 
+
+        <div id="loading-section">
+            <div id="loader-wrapper">
+                <div id="loader"></div>
+            </div>
+        </div>
+
+        <div id="maincontent">
+
+            <script>
                 // declaring variables from python script
                 var stateArray = {{all_states|safe}};
                 var selectedStates = {{curr_states|safe}};
-                console.log(selectedStates);
                 var numentries = {{numentries}};
                 var imgArray = {{imgArray|safe}};
                 var data = {{value|tojson}};

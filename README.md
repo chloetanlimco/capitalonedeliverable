@@ -16,6 +16,7 @@ project link: https://npk-ct.appspot.com/
 - Maps with visitor center and campground icons, if such things and their coordinates are available
 - Campgrounds with icons based on amenities and accessibilities
 - Option to show all search results (will take a considerably lengthier time to load)
+- Entering a state name into the initial search will select that filter for you
 
 ## Challenges
 - Learning how to handle and work with Flask
@@ -69,3 +70,5 @@ https://mlsdev.com/blog/81-a-beginner-s-tutorial-for-understanding-restful-api
 https://mdbootstrap.com/docs/jquery/forms/checkbox/
 
 https://www.tutorialspoint.com/online_bootstrap_editor.php
+
+https://ihatetomatoes.net/create-css3-spinning-preloader/

@@ -15,7 +15,6 @@ def stringify(states_array):
 # check if search term is a state - binary search
 def searchforstate(array, left, right, term):
     # base case
-    print("left: " + str(left) + ", right: " + str(right))
     if right < left:
         return -1
     midpoint = int((left + right) / 2)
@@ -79,7 +78,6 @@ def advancedsearch():
     if (request.form.get("searchterms")):
         search = request.form.get("searchterms")
         index = searchforstate(states_names, 0, int(len(states_names)-1), search.lower())
-        print (index)
         if (index != -1):
             # add it to curr_states in its correct position
             i = 0
@@ -87,7 +85,6 @@ def advancedsearch():
                 while (curr_states[i] < search):
                     i += 1
             curr_states.insert(i, all_states[index])
-            print(curr_states)
             # Initialize page-specific params for request
             params = {"api_key": config.api_key, "stateCode":stringify(curr_states), "limit": limit}
         else:

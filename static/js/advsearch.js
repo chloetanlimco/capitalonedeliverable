@@ -26,6 +26,8 @@ function determineSelectedDesignations() {
 
 // reload advancedsearch with appropriate filters
 function reloadUpdated() {
+    document.getElementById("maincontent").style.display = "none";
+    document.getElementById("loading-section").style.visibility = "visible";
     var search = $('#searchbar').val();
     var limit = 50;
     if (document.getElementById("showall").checked == true)
@@ -38,6 +40,7 @@ function reloadUpdated() {
         type: 'POST',
         data: {"states":determineSelectedStates(), "designations":determineSelectedDesignations(), "searchterms": search, "limit": limit},
         success: function (res) {
+            document.getElementById("loading-section").style.visibility = "hidden";
             document.open();
             document.write(res); // res is the response from the server 
             document.close();
@@ -50,7 +53,6 @@ function reloadUpdated() {
 // build the search results content
 function build()
 {
-    console.log(selectedStates);
     if (numentries == 0)
     {
         var panel = document.createElement("div");
