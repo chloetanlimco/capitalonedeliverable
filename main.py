@@ -17,6 +17,8 @@ header_ = {"Authorization": config.api_key}
 
 # Initialize Application
 app = Flask(__name__)
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+
 @app.route("/")
 def home():
 
@@ -49,94 +51,54 @@ def advancedsearch():
     else:
         curr_designations = []
 
-    if request.method == 'POST':
-
-        # Executing and search (not or); not necessary to parse string
-        if (request.form.get("searchterms")):
-            search = request.form.get("searchterms")
-            # Initialize page-specific params for request
-            params = {"api_key": config.api_key, "q":str(search), "stateCode":stringify(curr_states)}
-        else:
-            params = {"api_key": config.api_key, "stateCode":stringify(curr_states)}
-
-        for i in range (1, 10):
-            try:
-                empDict = requests.get(endpoint,params=params,headers=header_)
-            except Exception as e:
-                print (e)
-            if (empDict.json()):
-                break
-
-        data = empDict.json()
-
-        # filter out those not of appropriate designation
-        if (len(curr_designations)):
-            output_dict = []
-            for each in curr_designations:
-                output_dict += [x for x in data["data"] if x['designation'] == each]
-            newdata = output_dict
-        else:
-            newdata = data["data"]
-        
-        # get image array
-        imgArray = []
-        for each in newdata:
-            park = each["parkCode"]
-            imgurlendpoint = "https://developer.nps.gov/api/v1/parks?parkCode=" + park + "&fields=images"
-            imgreq = requests.get(imgurlendpoint, params=params, headers=header_)
-            imagesobject = imgreq.json()
-            if (imagesobject and imagesobject["data"][0]["images"]):
-                imgArray.append(str(imagesobject["data"][0]["images"][0]["url"]))
-
-        return render_template("filter.html", numentries=len(newdata), value=newdata, imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states), all_designations=json.dumps(all_designations), curr_designations=json.dumps(curr_designations))
-
+    if (request.form.getlist('limit')):
+        limit = request.form.getlist('limit')
     else:
-        
+        limit = 50
+
+
+    # Executing and search (not or); not necessary to parse string
+    if (request.form.get("searchterms")):
+        search = request.form.get("searchterms")
+        # Initialize page-specific params for request
+        params = {"api_key": config.api_key, "q":str(search), "stateCode":stringify(curr_states), "limit": limit}
+    else:
         params = {"api_key": config.api_key, "stateCode":stringify(curr_states)}
-        for i in range (1, 10):
-            try:
-                empDict = requests.get(endpoint,params=params,headers=header_)
-            except Exception as e:
-                print (e)
-            if (empDict.json()):
-                break
-        
-        data = empDict.json()
 
-        if (len(curr_designations)):
-            output_dict = []
-            for each in curr_designations:
-                output_dict += [x for x in data["data"] if x['designation'] == each]
-            newdata = output_dict
-        else:
-            newdata = data["data"]
+    for i in range (1, 10):
+        try:
+            empDict = requests.get(endpoint,params=params,headers=header_)
+        except Exception as e:
+            print (e)
+        if (empDict.json()):
+            break
 
+    data = empDict.json()
 
-        imgArray = []
-        for each in newdata:
-            park = each["parkCode"]
-            imgurlendpoint = "https://developer.nps.gov/api/v1/parks?parkCode=" + park + "&fields=images"
-            for i in range (1, 10):
-                try:
-                    imgreq = requests.get(imgurlendpoint, params=params, headers=header_)
-                except Exception as e:
-                    print (e)
-                if (imgreq.json()):
-                    break
+    # filter out those not of appropriate designation
+    if (len(curr_designations)):
+        output_dict = []
+        for each in curr_designations:
+            output_dict += [x for x in data["data"] if x['designation'] == each]
+        newdata = output_dict
+    else:
+        newdata = data["data"]
+    
+    # get image array
+    imgArray = []
+    for each in newdata:
+        park = each["parkCode"]
+        imgurlendpoint = "https://developer.nps.gov/api/v1/parks?parkCode=" + park + "&fields=images"
+        imgreq = requests.get(imgurlendpoint, params=params, headers=header_)
+        imagesobject = imgreq.json()
+        if (imagesobject and imagesobject["data"][0]["images"]):
+            imgArray.append(str(imagesobject["data"][0]["images"][0]["url"]))
 
-            imagesobject = imgreq.json()
-            if (imagesobject and imagesobject["data"][0]["images"]):
-                imgArray.append(str(imagesobject["data"][0]["images"][0]["url"]))
-
-        return render_template("filter.html", numentries=len(newdata), value=newdata, imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states), all_designations=json.dumps(all_designations), curr_designations=json.dumps(curr_designations))
+    return render_template("filter.html", numentries=len(newdata), value=newdata, imgArray=json.dumps(imgArray), all_states=json.dumps(all_states), curr_states=json.dumps(curr_states), all_designations=json.dumps(all_designations), curr_designations=json.dumps(curr_designations))
 
 @app.route("/about")
 def about():
     return render_template("about.html")
-
-@app.route("/getKey")
-def getKey():
-    return config.map_key
 
 @app.route("/park/<string:park_code>")
 def park(park_code):

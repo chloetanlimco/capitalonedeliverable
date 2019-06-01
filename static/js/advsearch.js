@@ -27,16 +27,22 @@ function determineSelectedDesignations() {
 // reload advancedsearch with appropriate filters
 function reloadUpdated() {
     var search = $('#searchbar').val();
+    var limit = 50;
+    if (document.getElementById("showall").checked == true)
+    {
+        limit = 500;
+    }
 
-    var str = 'This is some data';
     $.ajax({
         url: '/advancedsearch',
         type: 'POST',
-        data: {"states":determineSelectedStates(), "designations":determineSelectedDesignations(), "searchterms": search},
+        data: {"states":determineSelectedStates(), "designations":determineSelectedDesignations(), "searchterms": search, "limit": limit},
         success: function (res) {
-            document.write(res);
-        }, // res is the response from the server 
-        // (from return request.data)
+            document.open();
+            document.write(res); // res is the response from the server 
+            document.close();
+            console.log("success");
+        }, 
         error: function (error) { console.log(error) }
     })
 }
@@ -55,7 +61,7 @@ function build()
 
     // Creating menu (states)
     var j = 0;
-    for (i = 0; i < 56; i++) {
+    for (i = 0; i < stateArray.length; i++) {
 
         // create HTML components
         var listitem = document.createElement("li");
@@ -185,5 +191,5 @@ function build()
         var element = document.getElementById("maincontent");
         element.appendChild(panel);
     }
-    
 }
+
