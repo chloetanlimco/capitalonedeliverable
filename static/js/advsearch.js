@@ -1,7 +1,7 @@
 // figure out which states are selected
 function determineSelectedStates() {
     var curr_states = new Array();
-    for (i = 0; i < 56; i++)
+    for (i = 0; i < stateArray.length; i++)
     {
         if (document.getElementById(stateArray[i]).checked == true)
         {
@@ -45,7 +45,7 @@ function reloadUpdated() {
             document.write(res); // res is the response from the server 
             document.close();
             console.log("success");
-        }, 
+        },
         error: function (error) { console.log(error) }
     })
 }
@@ -123,11 +123,11 @@ function build()
         // check if designation is selected
         if (designationArray[i] == selectedDesignations[k]) {
             checkbox.checked = true;
+            k++;
         }
         else
         {
             checkbox.checked = false;
-            k++;
         }
 
         customdiv.appendChild(checkbox);

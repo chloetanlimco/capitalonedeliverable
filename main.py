@@ -53,7 +53,7 @@ def advancedsearch():
 
     all_designations = ["National Park","National Monument","National Preserve","National Lakeshore","National Seashore",
         "National River", "Wild and Scenic Riverways", "National Scenic Trails", "National Historic Trails", "National Historic Site",
-        "National Military Park", "National Battlefield Park", "National Battlefield Site", "National Battlefield", "National Monument", 
+        "National Military Park", "National Battlefield Park", "National Battlefield Site", "National Battlefield", 
         "National Historical Park", "National Historic Sites", "International Historic Site", "National Memorial", "National Recreation Areas", 
         "National Parkways", "Performing Arts"]
 

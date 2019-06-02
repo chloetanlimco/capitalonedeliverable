@@ -2,15 +2,36 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>About</title>
+    <title>National Parks Kiosk | About</title>
     <link rel="stylesheet" href="../static/css/about_style.css">
   </head>
   <body>
     {% extends "template.html" %}
     {% block content %}
-    <div id="spacing"></div>
-    <div id="title">Most Visited Parks</div>
-    <img id="graphic" src="../static/images/npgraphic.png">
+    <div id="spacing">
+      <div class="sectiontitle">About National Parks Kiosk</div>
+      <div class="txtblock">
+        <div>
+          <span>
+            This website allows you to search the National Parks Service public database using park name, key words, as well as
+            state 
+          </span>
+          <a href="https://abbreviations.yourdictionary.com/articles/state-abbrev.html"> (abbreviations) </a>
+          <span>and </span>
+          <a href=https://www.nps.gov/articles/nps-designations.htm> park designation</a>
+          <span>filters.</span>
+        </div>
+      </div>
+      <div>
+        <span> 
+          Search results default to no more than 50 results. Check 
+          "View All Results" and click Update Search to see all parks that match your search criteria. 
+        </span>
+      </div>
+
+      <div class="sectiontitle">Most Visited Parks</div>
+        <img id="graphic" src="../static/images/npgraphic.png">
+    </div>
     {% endblock %}
   </body>
 </html>

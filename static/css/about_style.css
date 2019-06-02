@@ -1,17 +1,28 @@
 #spacing {
-    margin-top: 50px;
+    margin: 40px;
+    margin-top: 70px;
     height: 100%;
     position: relative;
 }
 
-#graphic {
-    width: 100%;
+.txtblock {
+    color: 	#404040;
+    padding-top: 5px;
+    padding-left: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-right: 0px;
+    padding-bottom: 7px;
 }
-#title {
-    font-size: calc(18px + 2vw);
-    white-space: normal;
-    font-weight: bold;
-    font-family: Verdana, Geneva, sans-serif;
-    text-align: center; 
+
+.sectiontitle {
     color: black;
+    font-weight: bold;
+    font-size: 20px;
+    padding-bottom: 5px;
+    padding-top: 20px;
+}
+
+#graphic {
+    width: 80%;
 }

@@ -17,7 +17,9 @@
     <div id="spacing">
         <div id="sidebar">
             <!-- Search form -->
-            <input id="searchbar" class="form-control" type="text" placeholder="name, keyword search" name="searchterms" aria-label="Search">
+            <form onsubmit="reloadUpdated();">
+                <input id="searchbar" class="form-control" type="text" placeholder="name, keyword search" name="searchterms" aria-label="Search" ng-keyup="reloadUpdated()">
+            </form>
             <div class="custom-control custom-checkbox" id="singlexbox">
                 <input class="custom-control-input" type="checkbox" id="showall">
                 <label id="listtext" class="custom-control-label" for="showall">View All Results</label>
@@ -57,7 +59,6 @@
         </div>
 
         <div id="maincontent">
-
             <script>
                 // declaring variables from python script
                 var stateArray = {{all_states|safe}};
@@ -76,7 +77,6 @@
                     return parkurl;
                 }
                 build();
-
             </script>
         </div>
 

@@ -13,7 +13,7 @@ project link: https://npk-ct.appspot.com/
 - Advanced Search allows for name and filtering based on states and designations
 - Individual Park page styled similar to National Park pamphlets
 - Park pages includes overview, visitor centers, campgrounds, articles, events, news releases, alerts, operating hours, and further readings (educational resources, including lesson plans, people, and places)
-- Maps with visitor center and campground icons, if such things and their coordinates are available
+- Maps with visitor center and campground icons, if they exist and their coordinates are available
 - Campgrounds with icons based on amenities and accessibilities
 - Option to show all search results (will take a considerably lengthier time to load)
 - Entering a state name into the initial search will select that filter for you
