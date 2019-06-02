@@ -56,7 +56,7 @@ function build()
     if (numentries == 0)
     {
         var panel = document.createElement("div");
-        var text = document.createTextNode("No results :(.");
+        var text = first == 0 ? document.createTextNode("No results :(.") : document.createTextNode("Begin your search! :)");
         panel.appendChild(text);
         var element = document.getElementById("maincontent");
         element.appendChild(panel);
