@@ -5,6 +5,8 @@ challenge link: https://www.mindsumo.com/contests/national-park-api
 
 project link: https://npk-ct.appspot.com/
 
+No longer hosted on GCP ($), so website is non-functional (no backend). 
+
 ## Frameworks Used
 - Flask
 - Bootstrap
